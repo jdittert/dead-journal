@@ -1,0 +1,8 @@
+.splash-wrapper {
+    display: flex;
+}
+
+.left-splash {
+    width: 400px;
+    background-color: blue;
+}
