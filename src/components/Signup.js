@@ -30,6 +30,7 @@ export default function Signup() {
     
     return (
         <>
+        <h1>Sign Up</h1>
         {error && <div>
             {error}</div>}
         {currentUser && currentUser.email}
@@ -38,11 +39,12 @@ export default function Signup() {
             <label htmlFor='email'>Email</label>
             <input id='email' type='email' ref={emailRef} required />
             <label htmlFor='password'>Password</label>
-            <input id='password' type='password' ref={passwordRef} required />
+            <input id='password' type='password' ref={passwordRef} required autoComplete='off' />
             <label htmlFor='passwordConfirmation'>Password Confirmation</label>
-            <input id='passwordConfirmation' type='password' ref={passwordConfirmRef} required />
+            <input id='passwordConfirmation' type='password' ref={passwordConfirmRef} required autoComplete='off' />
             <button type='submit' disabled={loading}>Sign Up</button>
         </form>
+        <div>Already have an account? Log in.</div>
         </>
     )
 }

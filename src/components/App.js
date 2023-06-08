@@ -1,13 +1,14 @@
 import React from 'react';
 import { AuthProvider } from '../contexts/AuthContext';
 import Splash from './Splash';
+import Header from './Header';
+import '../styles/app.css'
  
  function App() {  
     return (
         <AuthProvider>
-        <div>
+            <Header />        
             <Splash />
-        </div>
         </AuthProvider>        
     )
 }
