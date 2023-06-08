@@ -1,21 +1,17 @@
 import React, { useRef, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import { Link } from 'react-router-dom';
 import '../styles/signup.css'
 
-export default function Signup() {
+export default function Login() {
     const emailRef = useRef()
     const passwordRef = useRef()
-    const passwordConfirmRef = useRef()
     const { signup, currentUser } = useAuth()
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
 
     async function handleSubmit(e) {
         e.preventDefault()
-
-        if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-            return setError('Passwords do not match')
-        }
 
         try {
             setError('')
@@ -30,7 +26,7 @@ export default function Signup() {
     
     return (
         <>
-        <h1>Sign Up</h1>
+        <h1>Log In</h1>
         {error && <div>
             {error}</div>}
         {currentUser.email}
@@ -40,11 +36,9 @@ export default function Signup() {
             <input id='email' type='email' ref={emailRef} required />
             <label htmlFor='password'>Password</label>
             <input id='password' type='password' ref={passwordRef} required autoComplete='off' />
-            <label htmlFor='passwordConfirmation'>Password Confirmation</label>
-            <input id='passwordConfirmation' type='password' ref={passwordConfirmRef} required autoComplete='off' />
-            <button type='submit' disabled={loading}>Sign Up</button>
+            <button type='submit' disabled={loading}>Log In</button>
         </form>
-        <div>Already have an account? Log in.</div>
+        <div>Need an account? <Link to='/signup'>Sign up.</Link></div>
         </>
     )
 }

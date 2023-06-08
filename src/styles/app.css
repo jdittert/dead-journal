@@ -12,3 +12,13 @@ body {
     margin: 0px;
     padding: 0px;
 }
+
+a:visited {
+    text-decoration: none;
+    color: white;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}

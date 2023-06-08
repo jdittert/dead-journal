@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/header.css'
 import { useAuth } from '../contexts/AuthContext';
+import { Link } from 'react-router-dom';
 
 function Header() {
     const {currentUser} = useAuth()
@@ -18,11 +19,14 @@ function Header() {
             </div>
             <div className='header-right'>
                 <div>LOG IN</div>
-                <div>SIGN UP</div>
+                <div>
+                    <Link to='/signup'>SIGN UP</Link>
+                </div>
             </div>
         </div>
         <div className='header-bottom'>
-            {currentUser && currentUser.email}
+            <div>{currentUser && currentUser.email}</div>
+            <div>Profile</div>
         </div>
         </>
     )
