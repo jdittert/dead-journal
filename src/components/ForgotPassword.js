@@ -1,26 +1,26 @@
 import React, { useRef, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../styles/signup.css'
 
-export default function Login() {
+export default function ForgotPassword() {
     const emailRef = useRef()
-    const passwordRef = useRef()
-    const { login } = useAuth()
+    const { resetPassword } = useAuth()
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
-    const navigate = useNavigate()
+    const [message, setMessage] = useState('')
 
     async function handleSubmit(e) {
         e.preventDefault()
 
         try {
             setError('')
+            setMessage('')
             setLoading(true)
-            await login(emailRef.current.value, passwordRef.current.value)
-            navigate('/')
+            await resetPassword(emailRef.current.value)
+            setMessage('Check your inbox for further instructions.')
         } catch {
-            setError('Failed to sign in.')
+            setError('Failed to reset password.')
         } 
 
         setLoading(false)
@@ -28,18 +28,18 @@ export default function Login() {
     
     return (
         <>
-        <h1>Log In</h1>
+        <h1>Password Reset</h1>
         {error && <div>
             {error}</div>}
+        {message && <div>
+            {message}</div>}
         <form onSubmit={handleSubmit}
         className='signup-form'>
             <label htmlFor='email'>Email</label>
-            <input id='email' type='email' ref={emailRef} required />
-            <label htmlFor='password'>Password</label>
-            <input id='password' type='password' ref={passwordRef} required autoComplete='off' />
-            <button type='submit' disabled={loading}>Log In</button>
+            <input id='email' type='email' ref={emailRef} required />            
+            <button type='submit' disabled={loading}>Reset Password</button>
         </form>
-        <div><Link to='/forgot-password'><span className='blue'>Forgot password?</span></Link></div>
+        <div><Link to='/login'><span className='blue'>Log in.</span></Link></div>
         <div>Need an account? <Link to='/signup'><span className='blue'>Sign up.</span></Link></div>
         </>
     )

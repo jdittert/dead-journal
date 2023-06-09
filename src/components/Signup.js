@@ -36,7 +36,7 @@ export default function Signup() {
         <h1>Sign Up</h1>
         {error && <div>
             {error}</div>}
-        {currentUser.email}
+        {currentUser && currentUser.email}
         <form onSubmit={handleSubmit}
         className='signup-form'>
             <label htmlFor='email'>Email</label>
