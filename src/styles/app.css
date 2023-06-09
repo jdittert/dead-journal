@@ -1,3 +1,9 @@
+:root {
+    --header-light: #004359;
+    --header-dark: #003040;
+    --icon-fill: #00b0ea;
+}
+
 @font-face {
     font-family: 'WLM Idea';
     src: url(../fonts/WLM\ Idea\ Regular.ttf) format('truetype');
@@ -21,4 +27,8 @@ a:visited {
 a {
     color: white;
     text-decoration: none;
+}
+
+.blue {
+    color: var(--header-light)
 }

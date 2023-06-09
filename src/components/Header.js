@@ -18,7 +18,9 @@ function Header() {
                 </div>
             </div>
             <div className='header-right'>
-                <div>LOG IN</div>
+                <div>
+                    <Link to='/login'>LOG IN</Link>
+                </div>
                 <div>
                     <Link to='/signup'>SIGN UP</Link>
                 </div>
@@ -26,7 +28,9 @@ function Header() {
         </div>
         <div className='header-bottom'>
             <div>{currentUser && currentUser.email}</div>
-            <div>Profile</div>
+            {currentUser ? 
+            <div>Profile</div> :
+            <div></div>}
         </div>
         </>
     )

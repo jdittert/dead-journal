@@ -1,14 +1,15 @@
 import React, { useRef, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/signup.css'
 
 export default function Login() {
     const emailRef = useRef()
     const passwordRef = useRef()
-    const { signup, currentUser } = useAuth()
+    const { login } = useAuth()
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
+    const navigate = useNavigate()
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -16,9 +17,10 @@ export default function Login() {
         try {
             setError('')
             setLoading(true)
-            await signup(emailRef.current.value, passwordRef.current.value) 
+            await login(emailRef.current.value, passwordRef.current.value)
+            navigate('/')
         } catch {
-            setError('Failed to create an account')
+            setError('Failed to sign in.')
         } 
 
         setLoading(false)
@@ -29,7 +31,6 @@ export default function Login() {
         <h1>Log In</h1>
         {error && <div>
             {error}</div>}
-        {currentUser.email}
         <form onSubmit={handleSubmit}
         className='signup-form'>
             <label htmlFor='email'>Email</label>
@@ -38,7 +39,7 @@ export default function Login() {
             <input id='password' type='password' ref={passwordRef} required autoComplete='off' />
             <button type='submit' disabled={loading}>Log In</button>
         </form>
-        <div>Need an account? <Link to='/signup'>Sign up.</Link></div>
+        <div>Need an account? <Link to='/signup'><span className='blue'>Sign up.</span></Link></div>
         </>
     )
 }

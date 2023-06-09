@@ -1,7 +1,7 @@
 .page-header {
     display: flex;
     justify-content: space-between;
-    background-color: #004359;
+    background-color: var(--header-light);
     color: white;
     font-family: 'WLM Idea';
     padding: 1rem;
@@ -25,12 +25,12 @@
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 32px;
-    background-color: #00b0ea;
+    background-color: var(--icon-fill);
 }
 
 .header-bottom {
     width: 100%;
-    background-color: #003040;
+    background-color: var(--header-dark);
     font-size: 1rem;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     padding: 1rem;
