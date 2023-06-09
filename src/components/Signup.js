@@ -33,21 +33,23 @@ export default function Signup() {
     
     return (
         <>
-        <h1>Sign Up</h1>
-        {error && <div>
-            {error}</div>}
-        {currentUser && currentUser.email}
-        <form onSubmit={handleSubmit}
-        className='signup-form'>
-            <label htmlFor='email'>Email</label>
-            <input id='email' type='email' ref={emailRef} required />
-            <label htmlFor='password'>Password</label>
-            <input id='password' type='password' ref={passwordRef} required autoComplete='off' />
-            <label htmlFor='passwordConfirmation'>Password Confirmation</label>
-            <input id='passwordConfirmation' type='password' ref={passwordConfirmRef} required autoComplete='off' />
-            <button type='submit' disabled={loading}>Sign Up</button>
-        </form>
-        <div>Already have an account? <Link to='/login'><span className="blue">Log in.</span></Link></div>
+        <div className='signup-form'>
+            <h1 className='center-text'>Sign Up</h1>
+            {error && <div>
+                {error}</div>}
+            {currentUser && currentUser.email}
+            <form onSubmit={handleSubmit}
+            className='signup-inputs'>
+                <label htmlFor='email'>Email</label>
+                <input id='email' type='email' ref={emailRef} required />
+                <label htmlFor='password'>Password</label>
+                <input id='password' type='password' ref={passwordRef} required autoComplete='off' />
+                <label htmlFor='passwordConfirmation'>Password Confirmation</label>
+                <input id='passwordConfirmation' type='password' ref={passwordConfirmRef} required autoComplete='off' />
+                <button className='signup-button' type='submit' disabled={loading}>Sign Up</button>
+            </form>
+            <div className='center-text'>Already have an account? <Link to='/login'><span className="blue">Log in.</span></Link></div>
+        </div>
         </>
     )
 }
