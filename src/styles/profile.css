@@ -1,0 +1,22 @@
+.profile-wrapper {
+    padding: 1rem;
+    padding-left: 5rem;
+    display: grid;
+    grid-template-rows: auto;
+    justify-content: left;
+}
+
+.profile-info {
+    display: grid;
+    grid-template-rows: auto;
+    gap: 1rem;
+    width: clamp(400px, 1200px, 90%);
+}
+
+.profile-field {
+    display: grid;
+    grid-template-columns: 100px auto;
+    justify-content: left;
+    max-width: 1200px;
+    min-width: min-content;
+}

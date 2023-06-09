@@ -29,7 +29,12 @@ function Header() {
         <div className='header-bottom'>
             <div>{currentUser && currentUser.email}</div>
             {currentUser ? 
-            <div>Profile</div> :
+            <>
+            <div><Link to='/profile'>Profile</Link></div>
+            <div><Link to='/entries'>Entries</Link></div>
+            <div>New Entry</div>
+            <div>Friends</div>
+            </> :
             <div></div>}
         </div>
         </>
