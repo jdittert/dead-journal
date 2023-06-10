@@ -1,8 +1,13 @@
 .splash-wrapper {
     display: flex;
+    padding-top: 2rem;
+    justify-content: space-evenly;
+    align-items: center;
+
 }
 
 .left-splash {
-    width: 400px;
-    background-color: blue;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }

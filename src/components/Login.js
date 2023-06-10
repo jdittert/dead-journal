@@ -28,20 +28,22 @@ export default function Login() {
     
     return (
         <>
-        <div className='signup-form'>
-            <h1 className='center-text'>Log In</h1>
-            {error && <div>
-                {error}</div>}
-            <form onSubmit={handleSubmit}
-            className='signup-inputs'>
-                <label htmlFor='email'>Email</label>
-                <input id='email' type='email' ref={emailRef} required />
-                <label htmlFor='password'>Password</label>
-                <input id='password' type='password' ref={passwordRef} required autoComplete='off' />
-                <button type='submit' className='signup-button' disabled={loading}>Log In</button>
-            </form>
-            <div className='center-text'><Link to='/forgot-password'><span className='blue'>Forgot password?</span></Link></div>
-            <div className='center-text'>Need an account? <Link to='/signup'><span className='blue'>Sign up.</span></Link></div>
+        <div className='splash-wrapper'>
+            <div className='signup-form'>
+                <h1 className='center-text'>Log In</h1>
+                {error && <div>
+                    {error}</div>}
+                <form onSubmit={handleSubmit}
+                className='signup-inputs'>
+                    <label htmlFor='email'>Email</label>
+                    <input id='email' type='email' ref={emailRef} required />
+                    <label htmlFor='password'>Password</label>
+                    <input id='password' type='password' ref={passwordRef} required autoComplete='off' />
+                    <button type='submit' className='signup-button' disabled={loading}>Log In</button>
+                </form>
+                <div className='center-text'><Link to='/forgot-password'><span className='blue'>Forgot password?</span></Link></div>
+                <div className='center-text'>Need an account? <Link to='/signup'><span className='blue'>Sign up.</span></Link></div>
+            </div>
         </div>
         </>
     )

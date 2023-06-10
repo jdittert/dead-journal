@@ -19,6 +19,10 @@ body {
     padding: 0px;
 }
 
+.brand-font {
+    font-family: 'WLM Idea';
+}
+
 .main-wrapper {
     padding-top: 2rem;
     display: grid;
