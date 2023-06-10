@@ -20,14 +20,16 @@ function Dashboard() {
 
     return (
         <>
-        <div>
-            {error && {error}}
-        </div>
-        <div>
-            Hello, {currentUser && currentUser.email}!
-        </div>
-        <div>
-            <button onClick={handleLogout}>Log Out</button>
+        <div className='main-wrapper'>
+            <div>
+                {error && {error}}
+            </div>
+            <div>
+                Hello, {currentUser && currentUser.email}!
+            </div>
+            <div>
+                <button onClick={handleLogout} className='signup-button'>Log Out</button>
+            </div>
         </div>
         </>
     )

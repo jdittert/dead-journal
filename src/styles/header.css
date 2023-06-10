@@ -28,6 +28,11 @@
     background-color: var(--icon-fill);
 }
 
+.icon {
+    width: 1.5rem;
+    height: auto;
+}
+
 .header-bottom {
     width: 100%;
     background-color: var(--header-dark);
@@ -37,4 +42,13 @@
     color: white;
     display: flex;
     gap: 1rem; 
+}
+
+.link-button {
+    font-family: 'WLM Idea';
+    border: none;
+    color: white;
+    background-color: var(--header-light);
+    padding: 0;
+    font-size: 1rem;
 }

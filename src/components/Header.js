@@ -2,16 +2,17 @@ import React from 'react';
 import '../styles/header.css'
 import { useAuth } from '../contexts/AuthContext';
 import { Link } from 'react-router-dom';
+import icon from '../assets/imgs/icons8-ghost-60.png'
 
 function Header() {
-    const {currentUser} = useAuth()
+    const {currentUser, logout} = useAuth()
     
     return (
         <>
         <div className='page-header'>
             <div className='header-left'>
                 <div className='icon'>
-                    <div className='blank-icon'></div>
+                    <img src={icon} alt='DJ Icon' className='icon'/>
                 </div>
                 <div className='site-title'>
                     DEADJOURNAL
@@ -19,9 +20,14 @@ function Header() {
             </div>            
             <div className='header-right'>
                 {currentUser ?
+                <>
                 <div id='header-user'>
-                    {currentUser.email}
-                </div> :
+                    Hello, {currentUser.email}!
+                </div>
+                <div>
+                    <button className='link-button' onClick={logout}>LOG OUT</button>
+                </div>
+                </> :
                 <>
                 <div id='header-login'>
                     <Link to='/login'>LOG IN</Link>
