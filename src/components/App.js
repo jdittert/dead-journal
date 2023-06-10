@@ -10,6 +10,7 @@ import ForgotPassword from './ForgotPassword'
 import Profile from './Profile'
 import '../styles/app.css'
 import Entries from './Entries'
+import NewEntry from './NewEntry'
  
  function App() {  
     return (
@@ -28,6 +29,10 @@ import Entries from './Entries'
                         <Route path='/entries' element={
                         <PrivateRoute>
                             <Entries />
+                        </PrivateRoute>} />
+                        <Route path='/new-entry' element={
+                        <PrivateRoute>
+                            <NewEntry />
                         </PrivateRoute>} />
                     <Route path='/signup' element={<Splash />} />
                     <Route path='/login' element={<Login />} />

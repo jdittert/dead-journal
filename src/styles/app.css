@@ -19,6 +19,13 @@ body {
     padding: 0px;
 }
 
+.main-wrapper {
+    padding-top: 2rem;
+    display: grid;
+    justify-content: center;
+    width: 100%;
+}
+
 a:visited {
     text-decoration: none;
     color: white;
@@ -31,4 +38,8 @@ a {
 
 .blue {
     color: var(--header-light)
+}
+
+.hidden {
+    display: none;
 }

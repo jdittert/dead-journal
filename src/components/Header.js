@@ -16,23 +16,30 @@ function Header() {
                 <div className='site-title'>
                     DEADJOURNAL
                 </div>
-            </div>
+            </div>            
             <div className='header-right'>
-                <div>
+                {currentUser ?
+                <div id='header-user'>
+                    {currentUser.email}
+                </div> :
+                <>
+                <div id='header-login'>
                     <Link to='/login'>LOG IN</Link>
                 </div>
-                <div>
+                <div id='header-signup'>
                     <Link to='/signup'>SIGN UP</Link>
                 </div>
+                </>
+                }
             </div>
         </div>
         <div className='header-bottom'>
-            <div>{currentUser && currentUser.email}</div>
             {currentUser ? 
             <>
+            <div><Link to='/'>Dashboard</Link></div>
             <div><Link to='/profile'>Profile</Link></div>
             <div><Link to='/entries'>Entries</Link></div>
-            <div>New Entry</div>
+            <div><Link to='/new-entry'>New Entry</Link></div>
             <div>Friends</div>
             </> :
             <div></div>}

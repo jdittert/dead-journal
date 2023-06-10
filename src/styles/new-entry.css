@@ -1,0 +1,7 @@
+.entry-form {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    padding: 1rem;
+    width: clamp(400px, 1200px, 2000px);
+}
