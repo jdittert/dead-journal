@@ -31,7 +31,7 @@ export default function Login() {
         <div className='splash-wrapper'>
             <div className='signup-form'>
                 <h1 className='center-text'>Log In</h1>
-                {error && <div>
+                {error && <div className='error-message'>
                     {error}</div>}
                 <form onSubmit={handleSubmit}
                 className='signup-inputs'>

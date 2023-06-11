@@ -1,4 +1,6 @@
 :root {
+    --background-color: #fbf9ff;
+    --error-color: #ef798a;
     --header-light: #004359;
     --header-dark: #003040;
     --icon-fill: #00b0ea;
@@ -36,6 +38,24 @@ body {
     width: 100%;
 }
 
+.success-message {
+    color: var(--icon-fill);
+    border: 1px solid var(--icon-fill);
+    border-radius: 4px;
+    padding: .5rem;
+    font-weight: bold;
+    background-color: var(--background-color);
+}
+
+.error-message {
+    color: var(--error-color);
+    border: 1px solid var(--error-color);
+    border-radius: 4px;
+    padding: .5rem;
+    font-weight: bold;
+    background-color: var(--background-color);
+}
+
 a:visited {
     text-decoration: none;
     color: white;
@@ -54,6 +74,7 @@ a {
     background-color: var(--header-dark);
     color: white;
     padding: .5rem;
+    text-align: end;
 }
 
 .hidden {
