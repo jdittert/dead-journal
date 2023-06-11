@@ -44,12 +44,19 @@ export default function NewEntry() {
                         <input type='text' ref={titleRef} />
                         <label htmlFor='new-entry-entry'>Entry:</label>
                         <textarea id='new-entry-entry' name='new-entry-entry' rows='20' ref={entryRef}/>
-                        <label htmlFor='new-entry-mood'>Mood:</label>
-                        <input type='text' ref={moodRef} />
+                        <div className='new-entry-input-group'>
+                            <div className='input-group'>
+                                <label htmlFor='new-entry-mood'>Mood:</label>
+                                <input type='text' ref={moodRef} />
+                            </div>
+                            <div className='input-group'>
+                                <label htmlFor='new-entry-music'>Music:</label>
+                                <input type='text' ref={musicRef} />
+                            </div>
+                        </div>
                         <label htmlFor='new-entry-location'>Location:</label>
                         <input type='text' ref={locationRef} />
-                        <label htmlFor='new-entry-music'>Music:</label>
-                        <input type='text' ref={musicRef} />                        
+                                                
                     </div>
                 <button type='submit' disabled={loading} className='signup-button'>Post Entry</button>
                 </form>

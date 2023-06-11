@@ -14,3 +14,18 @@
 .entry-form > h1 {
     margin-top: 0;
 }
+
+.new-entry-input-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.input-group {
+    display: flex;
+    gap: 1rem;
+    padding-right: 2rem;
+}
+
+.input-group > input {
+    width: 80%;
+}
