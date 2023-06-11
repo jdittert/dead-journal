@@ -1,12 +1,14 @@
 import React from 'react';
 import Signup from './Signup';
 import '../styles/splash.css'
+import icon from '../assets/imgs/icons8-ghost-60.png'
 
 function Splash() {
     return (
         <>
         <div className='splash-wrapper'>
             <div className='left-splash'>
+                <img className='splash-icon' src={icon} alt='DeadJournal Icon' />
                 <h1>Welcome to <span className='brand-font'>DeadJournal!</span></h1>
                 <div>
                     <p>Do you long for the time between MySpace and Facebook? Join us here on DeadJournal.</p>

@@ -8,7 +8,7 @@ function Header() {
     const {currentUser, logout} = useAuth()
     
     return (
-        <>
+        <div>
         <div className='page-header'>
             <div className='header-left'>
                 <div className='icon'>
@@ -50,7 +50,7 @@ function Header() {
             </> :
             <div></div>}
         </div>
-        </>
+        </div>
     )
 }
 

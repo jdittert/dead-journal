@@ -11,33 +11,37 @@ import Profile from './Profile'
 import '../styles/app.css'
 import Entries from './Entries'
 import NewEntry from './NewEntry'
+import Footer from './Footer'
  
  function App() {  
     return (
         <BrowserRouter>
             <AuthProvider>
-                <Header />
-                <Routes>
-                    <Route exact path='/' element={
-                        <PrivateRoute>
-                            <Dashboard />
-                        </PrivateRoute>} />
-                        <Route path='/profile' element={
-                        <PrivateRoute>
-                            <Profile />
-                        </PrivateRoute>} />
-                        <Route path='/entries' element={
-                        <PrivateRoute>
-                            <Entries />
-                        </PrivateRoute>} />
-                        <Route path='/new-entry' element={
-                        <PrivateRoute>
-                            <NewEntry />
-                        </PrivateRoute>} />
-                    <Route path='/signup' element={<Splash />} />
-                    <Route path='/login' element={<Login />} />
-                    <Route path='/forgot-password' element={<ForgotPassword />} />
-                </Routes>              
+                <div className='page-wrapper'>
+                    <Header />
+                    <Routes>
+                        <Route exact path='/' element={
+                            <PrivateRoute>
+                                <Dashboard />
+                            </PrivateRoute>} />
+                            <Route path='/profile' element={
+                            <PrivateRoute>
+                                <Profile />
+                            </PrivateRoute>} />
+                            <Route path='/entries' element={
+                            <PrivateRoute>
+                                <Entries />
+                            </PrivateRoute>} />
+                            <Route path='/new-entry' element={
+                            <PrivateRoute>
+                                <NewEntry />
+                            </PrivateRoute>} />
+                        <Route path='/signup' element={<Splash />} />
+                        <Route path='/login' element={<Login />} />
+                        <Route path='/forgot-password' element={<ForgotPassword />} />
+                    </Routes>
+                    <Footer />
+                </div>          
             </AuthProvider>  
         </BrowserRouter>              
     )

@@ -19,6 +19,12 @@ body {
     padding: 0px;
 }
 
+.page-wrapper {
+    display: grid;
+    grid-template-rows: min-content 1fr min-content;
+    min-height: 100vh;
+}
+
 .brand-font {
     font-family: 'WLM Idea';
 }
@@ -42,6 +48,12 @@ a {
 
 .blue {
     color: var(--header-light)
+}
+
+.footer {
+    background-color: var(--header-dark);
+    color: white;
+    padding: .5rem;
 }
 
 .hidden {
