@@ -1,5 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import { db } from '../firebase';
+import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import '../styles/new-entry.css'
 
 export default function NewEntry() {
@@ -15,11 +17,19 @@ export default function NewEntry() {
 
     async function handleSubmit(e) {
         e.preventDefault()
+        setError('')
+        setLoading(true)
 
         try {
-            setLoading(true)
-            setError('')
-            console.log(`User: ${currentUser.email}, Title: ${titleRef.current.value}, Mood: ${moodRef.current.value}, Loc: ${locationRef.current.value}, Music: ${musicRef.current.value}, Entry: ${entryRef.current.value}`)
+            await addDoc(collection(db, 'entries'), {
+                user: currentUser.email,
+                mood: moodRef.current.value,
+                location: locationRef.current.value,
+                music: musicRef.current.value,
+                entry: entryRef.current.value,
+                title: titleRef.current.value, 
+                timestamp: Timestamp.now()
+            }) 
             e.target.reset();
             setMessage('Entry added.')
         } catch {

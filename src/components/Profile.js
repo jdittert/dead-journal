@@ -1,12 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import { doc, setDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 import '../styles/profile.css'
+
 
 export default function Profile() {
     const { currentUser } = useAuth()
+    const [error, setError] = useState('')
+    const [loading, setLoading] = useState(false)
+
+    async function updateProfile() {
+        setError('')
+        setLoading(true)
+
+        try {
+            await setDoc(doc(db, 'users', currentUser.email), {
+                email: currentUser.email,
+                name: 'test2'
+            })
+        } catch {
+            setError('Failed to create user.')
+        } finally {
+            setLoading(false)
+        }
+    }
 
     return  (
         <div className='profile-wrapper'>
+            {error && <div className='error-message'>{error}</div>}
+            
             <h1>{currentUser.email}'s Profile</h1>
             <div className='profile-info'>
                 <div className='profile-field'>
@@ -30,6 +53,7 @@ export default function Profile() {
                     <div>testfriend1, otherfriend2, totallyrealperson</div>
                 </div>
             </div>
+            <button className='signup-button' onClick={updateProfile} disabled={loading}>Update Profile</button>
         </div>
     )
 }
