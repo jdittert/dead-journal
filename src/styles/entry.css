@@ -17,11 +17,14 @@
 
 .entry-date {
     padding-left: 1rem;
+    padding-bottom: .5rem;
     margin-bottom: .5rem;
+    border-bottom: 1px solid var(--header-light);
 }
 
 .entry-entry {
-    margin-bottom: .5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 .entry-details {
@@ -33,5 +36,28 @@
 .comment-bar {
     display: flex;
     gap: .25rem;
+}
+
+.favorite {
+    height: 1rem;
+    width: auto;
+}
+
+.favorite-info {
+    display: flex;
+    gap: .25rem;
+}
+
+.favorite-button {
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.favorite-image {
+    display: flex;
+    align-items: center;
 }
 

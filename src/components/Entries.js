@@ -11,6 +11,7 @@ export default function Entries() {
     const q = query(collection(db, 'entries'), where('user', '==', currentUser.email))
     
     useEffect(() => {
+        setError('')
         const getEntries = async () => {
             const userEntries = await getDocs(q)
             const firestormEntries = (userEntries.docs.map((doc) => ({...doc.data(), id: doc.id})))

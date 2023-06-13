@@ -28,7 +28,8 @@ export default function NewEntry() {
                 music: musicRef.current.value,
                 entry: entryRef.current.value,
                 title: titleRef.current.value, 
-                timestamp: Timestamp.now()
+                timestamp: Timestamp.now(),
+                likes: []
             }) 
             e.target.reset();
             setMessage('Entry added.')
