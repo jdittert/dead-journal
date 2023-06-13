@@ -1,0 +1,37 @@
+.entry {
+    background-color: var(--background-color);
+    display: grid;
+    grid-template-rows: min-content min-content 1fr min-content min-content;
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 2px solid var(--header-light);
+    border-radius: 4px;
+}
+
+.entry-title {
+    font-weight: bold;
+    font-size: 2rem;
+    margin-bottom: .5rem;
+}
+
+.entry-date {
+    padding-left: 1rem;
+    margin-bottom: .5rem;
+}
+
+.entry-entry {
+    margin-bottom: .5rem;
+}
+
+.entry-details {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: .5rem;
+}
+
+.comment-bar {
+    display: flex;
+    gap: .25rem;
+}
+
