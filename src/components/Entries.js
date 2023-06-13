@@ -13,7 +13,11 @@ export default function Entries() {
     useEffect(() => {
         const getEntries = async () => {
             const userEntries = await getDocs(q)
-            setEntries(userEntries.docs.map((doc) => ({...doc.data(), id: doc.id})))
+            const firestormEntries = (userEntries.docs.map((doc) => ({...doc.data(), id: doc.id})))
+            firestormEntries.sort(function(x, y) {
+                return y.timestamp - x.timestamp
+            })
+            setEntries(firestormEntries)
         }
 
         getEntries()
