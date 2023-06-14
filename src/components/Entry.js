@@ -5,6 +5,7 @@ import heart from '../assets/imgs/favorite-heart.svg'
 import { useAuth } from '../contexts/AuthContext';
 import { doc, updateDoc, arrayUnion, Timestamp } from 'firebase/firestore';
 import { db } from '../firebase';
+import Comment from './Comment';
 
 export default function Entry(props) {
     const {entry} = props
@@ -21,6 +22,12 @@ export default function Entry(props) {
             likes: arrayUnion(currentUser.email)
         })
 
+    }
+
+    function toggleComments(e) {
+        e.preventDefault()
+        const {id} = e.target.dataset
+        if (entry.comments.length > 0 ) document.getElementById(`comments-${id}`).classList.toggle('hidden')
     }
 
     function leaveComment(e) {
@@ -74,9 +81,20 @@ export default function Entry(props) {
                     </div>
                 </div>
                 <div className='blue'>|</div>
-                <div>{entry.comments.length} Comments</div>
+                <div><button className='favorite-button' onClick={toggleComments} data-id={entry.id}>
+                    {entry.comments.length} Comments
+                    </button>
+                </div>
                 <div className='blue'>|</div>
                 <div><button className='favorite-button' onClick={leaveComment} data-id={entry.id}>Leave a Comment</button></div>
+            </div>
+            <div id={`comments-${entry.id}`} className='hidden comment-section'>
+                {entry.comments.map((comment) => {
+                    return (
+                        <Comment comment={comment} index={entry.comments.indexOf(comment)} />
+                    )
+                }
+                )}
             </div>
             <div className='leave-comment hidden' id={`leave-comment-${entry.id}`}>
                 <div className='comment-form'>
@@ -90,6 +108,7 @@ export default function Entry(props) {
                     </form>
                 </div>
             </div>
+            
         </div>
     )
 }

@@ -62,7 +62,7 @@
     align-items: center;
 }
 
-.comment-form {
+.comment-form, .comment-section {
     margin: 1rem;
     border: 1px solid var(--header-dark);
     border-radius: 4px;
@@ -92,6 +92,19 @@
 .comment-buttons {
     display: flex;
     gap: .5rem;
+}
+
+.comment-time {
+    font-size: .75rem;
+    margin-bottom: .5rem;
+}
+
+.comment-content {
+    border: 1px solid var(--header-light);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    padding: .5rem;
+    background-color: var(--background-color);
 }
 
 .cancel {
