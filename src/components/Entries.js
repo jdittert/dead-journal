@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { db } from '../firebase';
-import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
+import { collection, query, where, onSnapshot, orderBy} from 'firebase/firestore';
 import Entry from './Entry';
 
 export default function Entries() {
@@ -12,13 +12,15 @@ export default function Entries() {
     
     useEffect(() => {
         setError('')
-        const getEntries = async () => {
-            const userEntries = await getDocs(q)
-            const firestormEntries = (userEntries.docs.map((doc) => ({...doc.data(), id: doc.id})))
-            setEntries(firestormEntries)
-        }
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+            const userEntries = [];
+            querySnapshot.forEach((doc) => {
+                userEntries.push({...doc.data(), id: doc.id})
+            })
+            setEntries(userEntries)
+        })
 
-        getEntries()
+        return () => unsubscribe()
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
