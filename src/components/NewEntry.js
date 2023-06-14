@@ -52,8 +52,10 @@ export default function NewEntry() {
                 </div>
                 <form id='new-entry-form' onSubmit={handleSubmit}>
                     <div className='signup-inputs'>
-                        <label htmlFor='new-entry-title'>Title:</label>
-                        <input type='text' ref={titleRef} />
+                        <div className='input-group'>
+                            <label htmlFor='new-entry-title'>Title:</label>
+                            <input type='text' ref={titleRef} />
+                        </div>
                         <label htmlFor='new-entry-entry'>Entry:</label>
                         <textarea id='new-entry-entry' name='new-entry-entry' rows='20' ref={entryRef}/>
                         <div className='new-entry-input-group'>
@@ -66,8 +68,10 @@ export default function NewEntry() {
                                 <input type='text' ref={musicRef} />
                             </div>
                         </div>
-                        <label htmlFor='new-entry-location'>Location:</label>
-                        <input type='text' ref={locationRef} />
+                        <div className='input-group'>
+                            <label htmlFor='new-entry-location'>Location:</label>
+                            <input type='text' ref={locationRef} />
+                        </div>
                                                 
                     </div>
                 <button type='submit' disabled={loading} className='signup-button'>Post Entry</button>

@@ -24,8 +24,10 @@
     display: flex;
     gap: 1rem;
     padding-right: 2rem;
+    align-items: center;
 }
 
 .input-group > input {
     width: 80%;
+    padding: .25rem;
 }

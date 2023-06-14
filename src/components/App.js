@@ -12,6 +12,7 @@ import '../styles/app.css'
 import Entries from './Entries'
 import NewEntry from './NewEntry'
 import Footer from './Footer'
+import UpdateProfile from './UpdateProfile'
  
  function App() {  
     return (
@@ -27,6 +28,10 @@ import Footer from './Footer'
                             <Route path='/profile' element={
                             <PrivateRoute>
                                 <Profile />
+                            </PrivateRoute>} />
+                            <Route path='/update-profile' element={
+                            <PrivateRoute>
+                                <UpdateProfile />
                             </PrivateRoute>} />
                             <Route path='/entries' element={
                             <PrivateRoute>

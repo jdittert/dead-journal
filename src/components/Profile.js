@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import { Link } from 'react-router-dom';
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import '../styles/profile.css'
@@ -10,21 +11,21 @@ export default function Profile() {
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
 
-    async function updateProfile() {
-        setError('')
-        setLoading(true)
+    // async function updateProfile() {
+    //     setError('')
+    //     setLoading(true)
 
-        try {
-            await setDoc(doc(db, 'users', currentUser.email), {
-                email: currentUser.email,
-                name: 'test2'
-            })
-        } catch {
-            setError('Failed to create user.')
-        } finally {
-            setLoading(false)
-        }
-    }
+    //     try {
+    //         await setDoc(doc(db, 'users', currentUser.email), {
+    //             email: currentUser.email,
+    //             name: 'test2'
+    //         })
+    //     } catch {
+    //         setError('Failed to create user.')
+    //     } finally {
+    //         setLoading(false)
+    //     }
+    // }
 
     return  (
         <div className='profile-wrapper'>
@@ -35,10 +36,6 @@ export default function Profile() {
                 <div className='profile-field'>
                     <div>Username:</div>
                     <div>testaccount</div>
-                </div>
-                <div className='profile-field'>
-                    <div>Email:</div>
-                    <div>{currentUser.email}</div>
                 </div>
                 <div className='profile-field'>
                     <div>Birthday:</div>
@@ -53,7 +50,9 @@ export default function Profile() {
                     <div>testfriend1, otherfriend2, totallyrealperson</div>
                 </div>
             </div>
-            <button className='signup-button' onClick={updateProfile} disabled={loading}>Update Profile</button>
+            <Link to='/update-profile'>
+                <button className='signup-button'  disabled={loading}>Update Profile</button>
+            </Link>
         </div>
     )
 }
