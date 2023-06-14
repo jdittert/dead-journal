@@ -1,23 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { db } from '../firebase';
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
 import Entry from './Entry';
 
 export default function Entries() {
     const { currentUser } = useAuth()
     const [error, setError] = useState('')
     const [entries, setEntries] = useState([])
-    const q = query(collection(db, 'entries'), where('user', '==', currentUser.email))
+    const q = query(collection(db, 'entries'), where('user', '==', currentUser.email), orderBy('timestamp', 'desc'))
     
     useEffect(() => {
         setError('')
         const getEntries = async () => {
             const userEntries = await getDocs(q)
             const firestormEntries = (userEntries.docs.map((doc) => ({...doc.data(), id: doc.id})))
-            firestormEntries.sort(function(x, y) {
-                return y.timestamp - x.timestamp
-            })
             setEntries(firestormEntries)
         }
 
