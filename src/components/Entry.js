@@ -1,15 +1,16 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useRef } from 'react';
 import '../styles/entry.css'
 import heart from '../assets/imgs/favorite-heart.svg'
 import { useAuth } from '../contexts/AuthContext';
-import { addDoc, doc, updateDoc, arrayUnion, collection, serverTimestamp } from 'firebase/firestore';
+import { doc, updateDoc, arrayUnion, Timestamp } from 'firebase/firestore';
 import { db } from '../firebase';
 
 export default function Entry(props) {
     const {entry} = props
     const { currentUser } = useAuth()
     const commentRef = useRef()
-
+    
     async function handleFavorite(e) {
         e.preventDefault();
         const {id} = e.target.dataset
@@ -32,10 +33,15 @@ export default function Entry(props) {
         e.preventDefault()
         const {id} = e.target.dataset
 
-        await addDoc(collection(db, 'entries', id, 'comments'), {
+        const currentEntry = doc(db, 'entries', id)
+
+        await updateDoc(currentEntry, {
+            comments: arrayUnion({
             user: currentUser.email,
-            timestamp: serverTimestamp(),
+            timestamp: Timestamp.now(),
             comment: commentRef.current.value
+            })
+            
         })
         e.target.reset()
         document.getElementById(`leave-comment-${id}`).classList.add('hidden')
@@ -68,7 +74,7 @@ export default function Entry(props) {
                     </div>
                 </div>
                 <div className='blue'>|</div>
-                <div>0 Comments</div>
+                <div>{entry.comments.length} Comments</div>
                 <div className='blue'>|</div>
                 <div><button className='favorite-button' onClick={leaveComment} data-id={entry.id}>Leave a Comment</button></div>
             </div>

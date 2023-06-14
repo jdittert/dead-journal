@@ -29,7 +29,8 @@ export default function NewEntry() {
                 entry: entryRef.current.value,
                 title: titleRef.current.value, 
                 timestamp: Timestamp.now(),
-                likes: []
+                likes: [], 
+                comments: []
             }) 
             e.target.reset();
             setMessage('Entry added.')
