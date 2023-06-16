@@ -25,7 +25,7 @@ function Dashboard() {
                 {error && {error}}
             </div>
             <div>
-                Hello, {currentUser && currentUser.email}!
+                Hello, {currentUser && currentUser.email}! Your uid is {currentUser.uid}
             </div>
             <div>
                 <button onClick={handleLogout} className='signup-button'>Log Out</button>

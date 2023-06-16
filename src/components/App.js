@@ -13,11 +13,13 @@ import Entries from './Entries'
 import NewEntry from './NewEntry'
 import Footer from './Footer'
 import UpdateProfile from './UpdateProfile'
+import { InfoProvider } from '../contexts/InfoContext'
  
  function App() {  
     return (
         <BrowserRouter>
             <AuthProvider>
+                <InfoProvider>
                 <div className='page-wrapper'>
                     <Header />
                     <Routes>
@@ -46,7 +48,8 @@ import UpdateProfile from './UpdateProfile'
                         <Route path='/forgot-password' element={<ForgotPassword />} />
                     </Routes>
                     <Footer />
-                </div>          
+                </div>
+                </InfoProvider>       
             </AuthProvider>  
         </BrowserRouter>              
     )

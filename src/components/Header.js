@@ -3,10 +3,17 @@ import '../styles/header.css'
 import { useAuth } from '../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import icon from '../assets/imgs/icons8-ghost-60.png'
+// import { useInfo } from '../contexts/InfoContext';
 
 function Header() {
     const {currentUser, logout} = useAuth()
     
+    if (currentUser) console.log(currentUser.displayName)
+
+    let userName = null
+
+    if (currentUser && currentUser.displayName !== null) userName = currentUser.displayName
+        
     return (
         <div>
         <div className='page-header'>
@@ -22,7 +29,7 @@ function Header() {
                 {currentUser ?
                 <>
                 <div id='header-user'>
-                    Hello, {currentUser.email}!
+                    Hello, {userName ? userName : currentUser.email}
                 </div>
                 <div>
                     <button className='link-button' onClick={logout}>LOG OUT</button>
