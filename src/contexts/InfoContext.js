@@ -2,7 +2,7 @@
 import React, { useContext, useState, useEffect} from 'react';
 import { useAuth } from './AuthContext';
 import { db } from '../firebase';
-import { doc, onSnapshot } from 'firebase/firestore';
+import { doc, onSnapshot, getDoc } from 'firebase/firestore';
 
 const InfoContext = React.createContext()
 
@@ -16,24 +16,26 @@ export function InfoProvider({ children }) {
 
     useEffect(() => {
         if (currentUser) {
-            // const docRef = doc(db, 'users', currentUser.email)
+            const docRef = doc(db, 'users', currentUser.uid)
     
-        // async function getInfo() {
-        //     const currentInfo = await getDoc(docRef)
-        //     return setUserInfo(currentInfo.data())
-        // }
+        async function getInfo() {
+            const currentInfo = await getDoc(docRef)
+            return setUserInfo(currentInfo.data())
+        }
       
-        // getInfo()
-
-        const unsubscribe = onSnapshot(doc(db, 'users', currentUser.email), (doc) => {
+        getInfo()
+        
+        const unsubscribe = onSnapshot(doc(db, 'users', currentUser.uid), (doc) => {
             setUserInfo(doc.data())
         })
-
+    
         unsubscribe()
     } else {
         setUserInfo({})
     }
-    }, [])  
+
+    
+    }, [currentUser])  
 
     const value = {
         userInfo

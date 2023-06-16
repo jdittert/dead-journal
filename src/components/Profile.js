@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import { db } from '../firebase';
@@ -10,25 +11,29 @@ export default function Profile() {
     const { currentUser } = useAuth()
     const [userInfo, setUserInfo] = useState({})
 
-    async function checkForProfile() {
-        const docRef = doc(db, 'users', currentUser.uid)
-        const docSnap = await getDoc(docRef)
-
-        if (docSnap.exists()) {
-            setUserInfo(docSnap.data())
-        } else {
-            await setDoc(doc(db, 'users', currentUser.uid), {
-                username: currentUser.displayName,
-                birthday: '',
-                education: '',
-                hobbies: '',
-                location: '',
-                email: currentUser.email
-            })
+    useEffect(() => {
+        async function checkForProfile() {
+            const docRef = doc(db, 'users', currentUser.uid)
+            const docSnap = await getDoc(docRef)
+    
+            if (docSnap.exists()) {
+                setUserInfo(docSnap.data())
+            } else {
+                await setDoc(doc(db, 'users', currentUser.uid), {
+                    username: currentUser.displayName,
+                    birthday: '',
+                    education: '',
+                    hobbies: '',
+                    location: '',
+                    email: currentUser.email
+                })
+            }
         }
-    }
 
-    checkForProfile()    
+        checkForProfile()  
+
+    }, [])
+      
 
     return  (
         <div className='profile-wrapper'>            
@@ -55,7 +60,7 @@ export default function Profile() {
                     <div>{userInfo.hobbies ? userInfo.hobbies : ''}</div>
                 </div>
                 <div className='profile-field'>
-                    <div>Friends:</div>
+                    <div>Follows:</div>
                     <div>testfriend1, otherfriend2, totallyrealperson</div>
                 </div>
             </div>
