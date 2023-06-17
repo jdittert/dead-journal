@@ -6,6 +6,7 @@ import Header from './Header'
 import Dashboard from './Dashboard'
 import Login from './Login'
 import PrivateRoute from './PrivateRoute'
+import PublicRoute from './PublicRoute'
 import ForgotPassword from './ForgotPassword'
 import Profile from './Profile'
 import '../styles/app.css'
@@ -43,9 +44,19 @@ import { InfoProvider } from '../contexts/InfoContext'
                             <PrivateRoute>
                                 <NewEntry />
                             </PrivateRoute>} />
-                        <Route path='/signup' element={<Splash />} />
-                        <Route path='/login' element={<Login />} />
-                        <Route path='/forgot-password' element={<ForgotPassword />} />
+                        
+                        <Route path='/signup' element={
+                        <PublicRoute>
+                            <Splash />
+                        </PublicRoute>} />
+                        <Route path='/login' element={
+                            <PublicRoute>
+                                <Login />
+                            </PublicRoute>} />
+                        <Route path='/forgot-password' element={
+                            <PublicRoute>
+                                <ForgotPassword />
+                            </PublicRoute>} />
                     </Routes>
                     <Footer />
                 </div>

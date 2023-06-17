@@ -4,40 +4,43 @@ import { useAuth } from '../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import { db } from '../firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { useInfo } from '../contexts/InfoContext';
 import '../styles/profile.css'
 
 
 export default function Profile() {
     const { currentUser } = useAuth()
-    const [userInfo, setUserInfo] = useState({})
+    const { userInfo } = useInfo()
 
-    useEffect(() => {
-        async function checkForProfile() {
-            const docRef = doc(db, 'users', currentUser.uid)
-            const docSnap = await getDoc(docRef)
+    // useEffect(() => {
+    //     async function checkForProfile() {
+    //         const docRef = doc(db, 'users', currentUser.uid)
+    //         const docSnap = await getDoc(docRef)
     
-            if (docSnap.exists()) {
-                setUserInfo(docSnap.data())
-            } else {
-                await setDoc(doc(db, 'users', currentUser.uid), {
-                    username: currentUser.displayName,
-                    birthday: '',
-                    education: '',
-                    hobbies: '',
-                    location: '',
-                    email: currentUser.email
-                })
-            }
-        }
+    //         if (docSnap.exists()) {
+    //             setUserInfo(docSnap.data())
+    //         } else {
+    //             await setDoc(doc(db, 'users', currentUser.uid), {
+    //                 username: currentUser.displayName,
+    //                 birthday: '',
+    //                 education: '',
+    //                 hobbies: '',
+    //                 location: '',
+    //                 email: currentUser.email
+    //             })
+    //         }
+    //     }
 
-        checkForProfile()  
+    //     checkForProfile()  
 
-    }, [])
+    // }, [])
       
 
     return  (
         <div className='profile-wrapper'>            
-            <h1>{userInfo.username ? userInfo.username : currentUser.email}'s Profile</h1>
+            <div className='profile-header'>
+                <h1>{userInfo.username ? userInfo.username : currentUser.email}'s Profile</h1>
+            </div>
             <div className='profile-info'>
                 <div className='profile-field'>
                     <div>Username:</div>
@@ -63,10 +66,11 @@ export default function Profile() {
                     <div>Follows:</div>
                     <div>testfriend1, otherfriend2, totallyrealperson</div>
                 </div>
+                <Link to='/update-profile'>
+                    <button className='signup-button'>Update Profile</button>
+                </Link>
             </div>
-            <Link to='/update-profile'>
-                <button className='signup-button'>Update Profile</button>
-            </Link>
+            
         </div>
     )
 }

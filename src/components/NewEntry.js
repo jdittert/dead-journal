@@ -22,7 +22,7 @@ export default function NewEntry() {
 
         try {
             await addDoc(collection(db, 'entries'), {
-                user: currentUser.email,
+                user: currentUser.uid,
                 mood: moodRef.current.value,
                 location: locationRef.current.value,
                 music: musicRef.current.value,

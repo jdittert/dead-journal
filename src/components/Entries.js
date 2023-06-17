@@ -8,7 +8,7 @@ export default function Entries() {
     const { currentUser } = useAuth()
     const [error, setError] = useState('')
     const [entries, setEntries] = useState([])
-    const q = query(collection(db, 'entries'), where('user', '==', currentUser.email), orderBy('timestamp', 'desc'))
+    const q = query(collection(db, 'entries'), where('user', '==', currentUser.uid), orderBy('timestamp', 'desc'))
     
     useEffect(() => {
         setError('')

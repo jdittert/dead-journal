@@ -3,7 +3,6 @@ import React, { useRef, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import { db } from '../firebase';
-// import { getAuth, updateProfile } from 'firebase/auth'
 import { doc, updateDoc } from 'firebase/firestore';
 import { useInfo } from '../contexts/InfoContext';
 
@@ -46,12 +45,7 @@ export default function UpdateProfile() {
                 education: educationRef.current.value,
                 hobbies: hobbiesRef.current.value
             })
-            // if (userRef.current.value !== currentUser.displayName) {
-            //     const auth = getAuth()
-            //     updateProfile(auth.currentUser, {
-            //         displayName: userRef.current.value
-            //     })
-            // }
+            
             setMessage('Profile updated.')
         } catch {
             setError('Profile failed to update.')

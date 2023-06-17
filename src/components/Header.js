@@ -3,16 +3,13 @@ import '../styles/header.css'
 import { useAuth } from '../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import icon from '../assets/imgs/icons8-ghost-60.png'
-// import { useInfo } from '../contexts/InfoContext';
+import { useInfo } from '../contexts/InfoContext';
 
 function Header() {
     const {currentUser, logout} = useAuth()
+    const { userInfo } = useInfo()
     
-    if (currentUser) console.log(currentUser.displayName)
-
-    let userName = null
-
-    if (currentUser && currentUser.displayName !== null) userName = currentUser.displayName
+    if (currentUser) console.log(userInfo.username)
         
     return (
         <div>
@@ -29,7 +26,7 @@ function Header() {
                 {currentUser ?
                 <>
                 <div id='header-user'>
-                    Hello, {userName ? userName : currentUser.email}
+                    Hello, {userInfo.username ? userInfo.username : currentUser.email}
                 </div>
                 <div>
                     <button className='link-button' onClick={logout}>LOG OUT</button>
