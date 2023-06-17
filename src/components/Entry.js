@@ -19,7 +19,7 @@ export default function Entry(props) {
         const currentEntry = doc(db, 'entries', id)
 
         await updateDoc(currentEntry, {
-            likes: arrayUnion(currentUser.email)
+            likes: arrayUnion(currentUser.uid)
         })
 
     }
@@ -44,7 +44,7 @@ export default function Entry(props) {
 
         await updateDoc(currentEntry, {
             comments: arrayUnion({
-            user: currentUser.email,
+            user: currentUser.uid,
             timestamp: Timestamp.now(),
             comment: commentRef.current.value
             })
