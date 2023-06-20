@@ -3,9 +3,11 @@ import { useAuth } from '../contexts/AuthContext';
 import { db } from '../firebase';
 import { collection, query, where, onSnapshot, orderBy} from 'firebase/firestore';
 import Entry from './Entry';
+import { useInfo } from '../contexts/InfoContext';
 
 export default function Entries() {
     const { currentUser } = useAuth()
+    const { userInfo } = useInfo()
     const [error, setError] = useState('')
     const [entries, setEntries] = useState([])
     const q = query(collection(db, 'entries'), where('user', '==', currentUser.uid), orderBy('timestamp', 'desc'))
@@ -28,7 +30,7 @@ export default function Entries() {
 
     return (
         <div className='main-wrapper'>
-            <div className='page-title'>{currentUser.email}'s Entries</div>
+            <div className='page-title'>{userInfo.username ? userInfo.username : currentUser.email}'s Entries</div>
             {error && <div className='error-message'>{error}</div>}
             {entries.map((entry) => {
                 return (

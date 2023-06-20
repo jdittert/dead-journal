@@ -62,10 +62,10 @@ export default function Entry(props) {
     }
 
     return (
-        <div className='entry' key={entry.id}>
+        <div className='entry' data-id={entry.id} key={entry.id}>
             <div className='entry-title'>{entry.title}</div>
             <div className='entry-date'>{entry.timestamp.toDate().toDateString()}</div>
-            <div className='entry-entry'>{entry.entry}</div>
+            <div className='entry-entry'>{entry.id}</div>
             <div className='entry-details'>
                 {entry.mood && <div className='entry-mood'><strong>Mood:</strong> {entry.mood}</div>}                
                 {entry.location && <div className='entry-location'><strong>Location:</strong> {entry.location}</div>}

@@ -10,31 +10,7 @@ import '../styles/profile.css'
 
 export default function Profile() {
     const { currentUser } = useAuth()
-    const { userInfo } = useInfo()
-
-    // useEffect(() => {
-    //     async function checkForProfile() {
-    //         const docRef = doc(db, 'users', currentUser.uid)
-    //         const docSnap = await getDoc(docRef)
-    
-    //         if (docSnap.exists()) {
-    //             setUserInfo(docSnap.data())
-    //         } else {
-    //             await setDoc(doc(db, 'users', currentUser.uid), {
-    //                 username: currentUser.displayName,
-    //                 birthday: '',
-    //                 education: '',
-    //                 hobbies: '',
-    //                 location: '',
-    //                 email: currentUser.email
-    //             })
-    //         }
-    //     }
-
-    //     checkForProfile()  
-
-    // }, [])
-      
+    const { userInfo } = useInfo()      
 
     return  (
         <div className='profile-wrapper'>            
