@@ -75,7 +75,7 @@ export default function Entry(props) {
                 <div className='favorite-info'>
                     <div>{entry.likes.length}</div>
                     <div className='favorite-image'>
-                        <button className='favorite-button' onClick={handleFavorite} data-id={entry.id}>
+                        <button className='favorite-button' onClick={handleFavorite} data-id={entry.id} disabled={!currentUser}>
                             <img src={heart} alt='Like' className='favorite' data-id={entry.id} />
                         </button>
                     </div>
@@ -86,7 +86,7 @@ export default function Entry(props) {
                     </button>
                 </div>
                 <div className='blue'>|</div>
-                <div><button className='favorite-button' onClick={leaveComment} data-id={entry.id}>Leave a Comment</button></div>
+                <div><button className='favorite-button' onClick={leaveComment} data-id={entry.id} disabled={!currentUser}>Leave a Comment</button></div>
             </div>
             <div id={`comments-${entry.id}`} className='hidden comment-section'>
                 {entry.comments.map((comment) => {

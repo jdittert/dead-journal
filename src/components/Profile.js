@@ -1,9 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Link } from 'react-router-dom';
-import { db } from '../firebase';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { useInfo } from '../contexts/InfoContext';
 import '../styles/profile.css'
 

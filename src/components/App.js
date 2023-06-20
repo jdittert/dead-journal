@@ -16,6 +16,7 @@ import Footer from './Footer'
 import UpdateProfile from './UpdateProfile'
 import { InfoProvider } from '../contexts/InfoContext'
 import UserProfile from './UserProfile'
+import UserEntries from './UserEntries'
  
  function App() {  
     return (
@@ -37,7 +38,8 @@ import UserProfile from './UserProfile'
                             <PrivateRoute>
                                 <UpdateProfile />
                             </PrivateRoute>} />
-                            <Route path='/user/:user' element={<UserProfile />} />
+                            <Route path='/user/:user' element={<UserProfile />}/>
+                            <Route path='/:user/entries' element={<UserEntries />} />
                             <Route path='/entries' element={
                             <PrivateRoute>
                                 <Entries />
