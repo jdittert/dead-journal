@@ -1,0 +1,9 @@
+.search-section > form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.search-section > form > input {
+    padding: .25rem;
+}

@@ -48,6 +48,11 @@ body {
     font-size: 2rem;
 }
 
+.small-title {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
 .success-message {
     color: var(--icon-fill);
     border: 1px solid var(--icon-fill);

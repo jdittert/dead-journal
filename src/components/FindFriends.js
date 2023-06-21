@@ -2,12 +2,13 @@ import React, { useRef, useState } from 'react';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 import { Link } from 'react-router-dom';
+import '../styles/find-friends.css'
 
 export default function FindFriends() {
     
     const searchRef = useRef()
     const usersRef = collection(db, 'users')
-    const [results, setResults] = useState([])
+    const [results, setResults] = useState(null)
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
 
@@ -33,7 +34,7 @@ export default function FindFriends() {
 
     return (
         <div className='main-wrapper'>
-            <div>
+            <div className='small-title'>
             DeadJournal is better with friends!
             </div>
             {error && <div className='error-message'>{error}</div>}
@@ -41,12 +42,18 @@ export default function FindFriends() {
                 <form id='find-friends' onSubmit={onSubmit}>
                 <label htmlFor='search-by-username'>Search by username:</label>
                 <input type='text' id='search-by-username' ref={searchRef} />
-                <button disabled={loading}>Search</button>
+                <div>
+                <button disabled={loading} className='signup-button'>Search</button>
+                </div>
+                
                 </form>                
             </div>
-            <div>Results:</div>
+            {results && <>
+            <div className='small-title'>Results:</div>
             <div className='results'>{results && results.length === 1 ? <Link to={{pathname: `/${results[0].username}/profile`}}>{results[0].username}</Link> :
             results}</div>
+            </>
+            }    
         </div>
     )
 }
