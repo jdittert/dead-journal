@@ -50,7 +50,8 @@ function Header() {
             <div><Link to='/profile'>Profile</Link></div>
             <div><Link to='/entries'>Entries</Link></div>
             <div><Link to='/new-entry'>New Entry</Link></div>
-            <div>Friends</div>
+            <div><Link to='friends'>Friends</Link></div>
+            <div><Link to='/find-friends'>Find Friends</Link></div>
             </> :
             <div></div>}
         </div>

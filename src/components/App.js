@@ -17,6 +17,8 @@ import UpdateProfile from './UpdateProfile'
 import { InfoProvider } from '../contexts/InfoContext'
 import UserProfile from './UserProfile'
 import UserEntries from './UserEntries'
+import FindFriends from './FindFriends'
+import Friends from './Friends'
  
  function App() {  
     return (
@@ -47,6 +49,14 @@ import UserEntries from './UserEntries'
                             <Route path='/new-entry' element={
                             <PrivateRoute>
                                 <NewEntry />
+                            </PrivateRoute>} />
+                            <Route path='/find-friends' element={
+                            <PrivateRoute>
+                                <FindFriends />
+                            </PrivateRoute>} />
+                            <Route path='/friends' element={
+                            <PrivateRoute>
+                                <Friends />
                             </PrivateRoute>} />
                         
                         <Route path='/signup' element={
