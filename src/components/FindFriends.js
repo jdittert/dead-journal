@@ -49,7 +49,7 @@ export default function FindFriends() {
                 </form>                
             </div>
             {results && <>
-            <div className='small-title'>Results:</div>
+            <div className='small-title'>Results</div>
             <div className='results'>{results && results.length === 1 ? <Link to={{pathname: `/${results[0].username}/profile`}}>{results[0].username}</Link> :
             results}</div>
             </>

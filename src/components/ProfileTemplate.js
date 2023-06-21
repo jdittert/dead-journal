@@ -1,7 +1,9 @@
 import React from 'react'
+import { useAuth } from '../contexts/AuthContext'
 
 export default function ProfileTemplate(props) {
     const { userProfile } = props
+    const { currentUser } = useAuth()
 
     return (
             <>
@@ -34,6 +36,10 @@ export default function ProfileTemplate(props) {
                     <div>{userProfile.follows ? userProfile.follows : 'This user does not currently follow anyone.'}</div>
                 </div>
             </div>
+            {currentUser && 
+            <div>
+                <button className='signup-button'>Follow {userProfile.username}</button>
+            </div>}
             </>
     )
 }
