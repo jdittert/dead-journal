@@ -40,7 +40,7 @@ import Friends from './Friends'
                             <PrivateRoute>
                                 <UpdateProfile />
                             </PrivateRoute>} />
-                            <Route path='/user/:user' element={<UserProfile />}/>
+                            <Route path='/:user/profile' element={<UserProfile />}/>
                             <Route path='/:user/entries' element={<UserEntries />} />
                             <Route path='/entries' element={
                             <PrivateRoute>

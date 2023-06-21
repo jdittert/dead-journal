@@ -76,8 +76,12 @@ a {
     text-decoration: none;
 }
 
+.results > a {
+    color: var(--header-light);
+}
+
 .blue {
-    color: var(--header-light)
+    color: var(--header-light);
 }
 
 .footer {
