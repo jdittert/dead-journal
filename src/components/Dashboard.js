@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { useInfo } from '../contexts/InfoContext';
 
 function Dashboard() {
     const [error, setError] = useState('')
     const { currentUser, logout } = useAuth()
+    const { userInfo } = useInfo()
     const navigate = useNavigate()
 
     async function handleLogout() {
@@ -25,7 +27,7 @@ function Dashboard() {
                 {error && {error}}
             </div>
             <div>
-                Hello, {currentUser && currentUser.email}! Your uid is {currentUser.uid}
+                Hello, {currentUser && userInfo.username ? userInfo.username : currentUser.email}! 
             </div>
             <div>
                 <button onClick={handleLogout} className='signup-button'>Log Out</button>

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { db } from '../firebase';
 import { doc, updateDoc } from 'firebase/firestore';
 import { useInfo } from '../contexts/InfoContext';
+import '../styles/profile.css';
 
 export default function UpdateProfile() {
     const { currentUser } = useAuth()
@@ -19,17 +20,6 @@ export default function UpdateProfile() {
     const [loading, setLoading] = useState(false)
 
     const userRef = doc(db, 'users', currentUser.uid)
-
-    // useEffect(() => {
-    //     const userSnap = async () => {
-    //         const info = await getDoc(userRef)
-    //         setUserInfo(info.data())
-    //     }
-
-    //     userSnap()
-    //     console.log(userInfo)
-
-    // }, [])
     
     async function handleSubmit(e) {
         e.preventDefault()
@@ -39,7 +29,7 @@ export default function UpdateProfile() {
 
         try {
             await updateDoc(userRef, {
-                username: usernameRef.current.value,
+                username: usernameRef.current.value.replace(/[\W]/gm,'').toLowerCase(),
                 birthday: birthdayRef.current.value,
                 location: locationRef.current.value,
                 education: educationRef.current.value,
@@ -66,7 +56,10 @@ export default function UpdateProfile() {
                 <form id='update-profile-form' onSubmit={handleSubmit}>
                     <div className='profile-field'>
                         <label htmlFor='username'><strong>Username: </strong></label>
+                        <div>
                         <input id='username' ref={usernameRef} defaultValue={userInfo.username && userInfo.username} type='text' />
+                        <div className='reminder-text'>(Usernames may contain only lowercase letters and numbers.)</div>
+                        </div>
                     </div>
                     <div className='profile-field'>
                         <label htmlFor='location'><strong>Location: </strong></label>
@@ -85,7 +78,7 @@ export default function UpdateProfile() {
                         <textarea id='hobbies' ref={hobbiesRef} defaultValue={userInfo.hobbies && userInfo.hobbies} rows='3' />
                     </div>
                     <div className='comment-buttons'>
-                    <button className='profile-button' type='submit' disabled={loading} >Save Changes</button>
+                    <button className='signup-button' type='submit' disabled={loading} >Save Changes</button>
                     <Link to='/profile'>
                         <button className='cancel'>Cancel</button>
                     </Link>                  

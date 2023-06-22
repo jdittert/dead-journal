@@ -22,6 +22,19 @@
     display: grid;
     grid-template-columns: 100px auto;
     justify-content: left;
+    align-items: baseline;
     max-width: 1200px;
     min-width: min-content;
+}
+
+#update-profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.reminder-text {
+    font-style: italic;
+    margin-top: .5rem;
+    font-size: .9rem;
 }

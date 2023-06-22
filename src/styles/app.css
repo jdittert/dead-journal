@@ -60,6 +60,7 @@ body {
     padding: .5rem;
     font-weight: bold;
     background-color: var(--background-color);
+    margin-bottom: 1rem;
 }
 
 .error-message {
@@ -69,6 +70,7 @@ body {
     padding: .5rem;
     font-weight: bold;
     background-color: var(--background-color);
+    margin-bottom: 1rem;
 }
 
 a:visited {
@@ -87,6 +89,17 @@ a {
 
 .blue {
     color: var(--header-light);
+}
+
+textarea {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding: .25rem;
+    border-radius: 4px;
+}
+
+input {
+    padding: .25rem;
+    border-radius: 4px;
 }
 
 .footer {
