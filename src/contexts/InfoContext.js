@@ -15,25 +15,21 @@ export function InfoProvider({ children }) {
     const [userInfo, setUserInfo] = useState({})   
 
     useEffect(() => {
-        if (currentUser) {
-            const docRef = doc(db, 'users', currentUser.uid)
-    
         async function getInfo() {
+            const docRef = doc(db, 'users', currentUser.uid)
             const currentInfo = await getDoc(docRef)
             return setUserInfo(currentInfo.data())
-        }
-      
-        getInfo()
+        }      
         
-        const unsubscribe = onSnapshot(doc(db, 'users', currentUser.uid), (doc) => {
-            setUserInfo(doc.data())
-        })
-    
-        unsubscribe()
-    } else {
-        setUserInfo({})
-    }
-
+        if (currentUser) {
+            getInfo()
+            
+            const unsubscribe = onSnapshot(doc(db, 'users', currentUser.uid), (doc) => {
+                setUserInfo(doc.data())
+            })
+        
+           return () => unsubscribe()
+        }
     
     }, [currentUser])  
 
