@@ -12,7 +12,7 @@ export function useInfo() {
 
 export function InfoProvider({ children }) {
     const { currentUser } = useAuth()
-    const [userInfo, setUserInfo] = useState({})
+    const [userInfo, setUserInfo] = useState({})   
 
     useEffect(() => {
         if (currentUser) {

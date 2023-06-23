@@ -8,8 +8,6 @@ import { useInfo } from '../contexts/InfoContext';
 function Header() {
     const {currentUser, logout} = useAuth()
     const { userInfo } = useInfo()
-    
-    if (currentUser) console.log(userInfo.username)
         
     return (
         <div>
@@ -26,7 +24,7 @@ function Header() {
                 {currentUser ?
                 <>
                 <div id='header-user'>
-                    Hello, {userInfo.username ? userInfo.username : currentUser.email}
+                    Hello, {userInfo ? userInfo.username ? userInfo.username : currentUser.email : currentUser.email}
                 </div>
                 <div>
                     <button className='link-button' onClick={logout}>LOG OUT</button>

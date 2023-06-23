@@ -1,9 +1,12 @@
 import React, { useRef, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
+import { doc, setDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 import '../styles/signup.css'
 
 export default function Signup() {
+    const usernameRef = useRef()
     const emailRef = useRef()
     const passwordRef = useRef()
     const passwordConfirmRef = useRef()
@@ -22,7 +25,11 @@ export default function Signup() {
         try {
             setError('')
             setLoading(true)
-            await signup(emailRef.current.value, passwordRef.current.value)
+            const cred = await signup(emailRef.current.value, passwordRef.current.value)
+            await setDoc((doc(db, 'users', cred.user.uid)), {
+                username: usernameRef.current.value.replace(/[\W]/gm,'').toLowerCase(),
+                email: cred.user.email
+            })
             navigate('/')
         } catch {
             setError('Failed to create an account')
@@ -40,6 +47,8 @@ export default function Signup() {
             {currentUser && currentUser.email}
             <form onSubmit={handleSubmit}
             className='signup-inputs'>
+                <label htmlFor='username'>Username</label>
+                <input id='username' type='text' ref={usernameRef} required />
                 <label htmlFor='email'>Email</label>
                 <input id='email' type='email' ref={emailRef} required />
                 <label htmlFor='password'>Password</label>
