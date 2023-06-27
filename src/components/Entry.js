@@ -6,10 +6,12 @@ import { useAuth } from '../contexts/AuthContext';
 import { doc, updateDoc, arrayUnion, Timestamp } from 'firebase/firestore';
 import { db } from '../firebase';
 import Comment from './Comment';
+import { useInfo } from '../contexts/InfoContext';
 
 export default function Entry(props) {
-    const {entry} = props
+    const { entry } = props
     const { currentUser } = useAuth()
+    const { userInfo } = useInfo()
     const commentRef = useRef()
     
     async function handleFavorite(e) {
@@ -45,6 +47,7 @@ export default function Entry(props) {
         await updateDoc(currentEntry, {
             comments: arrayUnion({
             user: currentUser.uid,
+            username: userInfo.username,
             timestamp: Timestamp.now(),
             comment: commentRef.current.value
             })

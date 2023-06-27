@@ -32,13 +32,16 @@ export default function Entries() {
         <div className='main-wrapper'>
             <div className='page-title'>{userInfo.username ? userInfo.username : currentUser.email}'s Entries</div>
             {error && <div className='error-message'>{error}</div>}
-            {entries.map((entry) => {
+            {entries.length === 0 ? 
+            <div>This user has no public entries.</div> : 
+            entries.map((entry) => {
                 return (
                     <>
                         <Entry entry={entry} />
                     </>
                 )
-            })}
+            })
+        }
         </div>
     )
 }
