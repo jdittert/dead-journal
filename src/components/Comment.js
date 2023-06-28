@@ -22,16 +22,6 @@ export default function Comment(props) {
         getCommentor()
 
     }, [])
-        
-    
-    
-
-    // const ud = getUsername().then(value => {
-    //     const data = value.username
-    //     return data
-    //     })
-    
-    // console.log(ud)
     
     return (
         <div className='comment' key={index}>
