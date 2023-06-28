@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import '../styles/entry.css'
 import heart from '../assets/imgs/favorite-heart.svg'
 import { useAuth } from '../contexts/AuthContext';
-import { doc, updateDoc, arrayUnion, Timestamp } from 'firebase/firestore';
+import { doc, updateDoc, arrayUnion, Timestamp, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import Comment from './Comment';
 import { useInfo } from '../contexts/InfoContext';
@@ -13,6 +13,7 @@ export default function Entry(props) {
     const { currentUser } = useAuth()
     const { userInfo } = useInfo()
     const commentRef = useRef()
+    const [entryUser, setEntryUser] = useState('Anonymous')
     
     async function handleFavorite(e) {
         e.preventDefault();
@@ -64,9 +65,30 @@ export default function Entry(props) {
         document.getElementById(`leave-comment-${id}`).classList.add('hidden')
     }
 
+    useEffect(() => {
+        async function getEntryUser() {
+            try{
+                const person = await getDoc(doc(db, 'users', entry.user))
+                const personName = person.data().username
+                setEntryUser(personName)
+            } catch {
+                setEntryUser('Anonymous')
+            }            
+        }
+
+        getEntryUser()
+
+    })
+
     return (
         <div className='entry' data-id={entry.id} key={entry.id}>
-            <div className='entry-title'>{entry.title}</div>
+            <div className='entry-heading'>
+                <div className='entry-title'>{entry.title}</div>
+                <div className='entry-user'>
+                    <div className='entry-username'>{entryUser}</div>
+                    <div className='entry-profile-pic'></div>
+                </div>
+            </div>
             <div className='entry-date'>{entry.timestamp.toDate().toDateString()}</div>
             <div className='entry-entry'>{entry.entry}</div>
             <div className='entry-details'>
