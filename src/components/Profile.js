@@ -1,14 +1,32 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import { useInfo } from '../contexts/InfoContext';
 import '../styles/profile.css'
+import { collection, query, where, documentId, onSnapshot} from 'firebase/firestore';
+import { db } from '../firebase';
 
 
 export default function Profile() {
     const { currentUser } = useAuth()
-    const { userInfo } = useInfo()      
+    const { userInfo } = useInfo()
+    const [friends, setFriends] = useState()
+
+    // const q = query(collection(db, 'users'), where(documentId(), 'in', userInfo.follows))
+    
+    // useEffect(() => {
+    //     const unsubscribe = onSnapshot(q, (querySnapshot) => {
+    //         const tempFriends = []
+    //         querySnapshot.forEach((doc) => {
+    //             tempFriends.push(doc.data().username)
+    //         })
+    //         setFriends(tempFriends)
+    //     })        
+
+    //     return () => unsubscribe()
+
+    // }, [])
 
     return  (
         <div className='profile-wrapper'>            
@@ -38,7 +56,7 @@ export default function Profile() {
                 </div>
                 <div className='profile-field'>
                     <div>Follows:</div>
-                    <div>testfriend1, otherfriend2, totallyrealperson</div>
+                    <div>{friends ? friends : ''}</div>
                 </div>
                 <Link to='/update-profile'>
                     <button className='signup-button'>Update Profile</button>

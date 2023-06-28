@@ -1,13 +1,20 @@
 import React from 'react';
 import '../styles/header.css'
 import { useAuth } from '../contexts/AuthContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import icon from '../assets/imgs/icons8-ghost-60.png'
 import { useInfo } from '../contexts/InfoContext';
 
 function Header() {
     const {currentUser, logout} = useAuth()
     const { userInfo } = useInfo()
+    const navigate = useNavigate()
+
+    async function HeaderLogOut(e) {
+        e.preventDefault()
+        await logout()
+        navigate('/login')
+    }
         
     return (
         <div>
@@ -27,7 +34,7 @@ function Header() {
                     Hello, {userInfo ? userInfo.username ? userInfo.username : currentUser.email : currentUser.email}
                 </div>
                 <div>
-                    <button className='link-button' onClick={logout}>LOG OUT</button>
+                    <button className='link-button' onClick={HeaderLogOut}>LOG OUT</button>
                 </div>
                 </> :
                 <>

@@ -14,11 +14,11 @@ export default function Friends() {
     const entriesRef = collection(db, 'entries')
 
     const follows = userInfo.follows
+    console.log(userInfo)
     const q = query(entriesRef, where('user', 'in', follows), orderBy('timestamp', 'desc'))   
     
     useEffect(() => {
         setError('')
-        console.log(follows)
         async function getEntries() {
             const querySnapshot = await getDocs(q)
             const tempEntries = []
@@ -26,7 +26,6 @@ export default function Friends() {
                 tempEntries.push({...doc.data(), id: doc.id})
             })
             setEntries(tempEntries)
-            console.log(entries)
         }
 
         return () => getEntries() 

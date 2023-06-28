@@ -12,26 +12,32 @@ export function useInfo() {
 
 export function InfoProvider({ children }) {
     const { currentUser } = useAuth()
-    const [userInfo, setUserInfo] = useState({})   
-
-    useEffect(() => {
-        async function getInfo() {
-            const docRef = doc(db, 'users', currentUser.uid)
-            const currentInfo = await getDoc(docRef)
-            return setUserInfo(currentInfo.data())
-        }      
-        
-        if (currentUser) {
-            getInfo()
-            
-            const unsubscribe = onSnapshot(doc(db, 'users', currentUser.uid), (doc) => {
-                setUserInfo(doc.data())
-            })
-        
-           return () => unsubscribe()
-        }
+    const [userInfo, setUserInfo] = useState({})
+    // let usersRef
     
-    }, [currentUser])  
+    // if (currentUser) {
+    //     usersRef = doc(db, 'users', currentUser.uid)
+    // } 
+
+    // useEffect(() => {
+    //     // async function getInfo() {
+    //     //     const docRef = doc(db, 'users', currentUser.uid)
+    //     //     const currentInfo = await getDoc(docRef)
+    //     //     return setUserInfo(currentInfo.data())
+    //     // } 
+        
+    //     const unsubscribe = onSnapshot((usersRef), (doc) => {
+    //         if(doc.exists()) {
+    //             setUserInfo(doc.data())
+    //         } else {
+    //             console.log('error')
+    //         }
+    //         }) 
+        
+    //        return () => unsubscribe()
+        
+    
+    // }, [currentUser])  
 
     const value = {
         userInfo
