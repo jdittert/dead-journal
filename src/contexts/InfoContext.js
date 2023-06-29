@@ -2,7 +2,7 @@
 import React, { useContext, useState, useEffect} from 'react';
 import { useAuth } from './AuthContext';
 import { db } from '../firebase';
-import { doc, onSnapshot, getDoc } from 'firebase/firestore';
+import { doc, onSnapshot } from 'firebase/firestore';
 
 const InfoContext = React.createContext()
 
@@ -12,32 +12,26 @@ export function useInfo() {
 
 export function InfoProvider({ children }) {
     const { currentUser } = useAuth()
-    const [userInfo, setUserInfo] = useState({})
-    // let usersRef
-    
-    // if (currentUser) {
-    //     usersRef = doc(db, 'users', currentUser.uid)
-    // } 
+    const [userInfo, setUserInfo] = useState({})  
 
-    // useEffect(() => {
-    //     // async function getInfo() {
-    //     //     const docRef = doc(db, 'users', currentUser.uid)
-    //     //     const currentInfo = await getDoc(docRef)
-    //     //     return setUserInfo(currentInfo.data())
-    //     // } 
+    useEffect(() => {
         
-    //     const unsubscribe = onSnapshot((usersRef), (doc) => {
-    //         if(doc.exists()) {
-    //             setUserInfo(doc.data())
-    //         } else {
-    //             console.log('error')
-    //         }
-    //         }) 
-        
-    //        return () => unsubscribe()
-        
+        if (currentUser) {
+            let usersRef = null
+            usersRef = doc(db, 'users', currentUser.uid)
+
+            const unsubscribe = onSnapshot((usersRef), (doc) => {
+                if(doc.exists()) {
+                    setUserInfo(doc.data())
+                } else {
+                    console.log('error')
+                }
+                }) 
+            
+               return () => unsubscribe()
+        }      
     
-    // }, [currentUser])  
+    }, [currentUser])  
 
     const value = {
         userInfo

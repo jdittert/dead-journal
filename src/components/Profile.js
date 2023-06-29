@@ -11,22 +11,24 @@ import { db } from '../firebase';
 export default function Profile() {
     const { currentUser } = useAuth()
     const { userInfo } = useInfo()
-    const [friends, setFriends] = useState()
-
-    // const q = query(collection(db, 'users'), where(documentId(), 'in', userInfo.follows))
+    const [friends, setFriends] = useState()    
     
-    // useEffect(() => {
-    //     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-    //         const tempFriends = []
-    //         querySnapshot.forEach((doc) => {
-    //             tempFriends.push(doc.data().username)
-    //         })
-    //         setFriends(tempFriends)
-    //     })        
+    useEffect(() => {
+        if (userInfo.follows) {
+            const q = query(collection(db, 'users'), where(documentId(), 'in', userInfo.follows))
 
-    //     return () => unsubscribe()
+            const unsubscribe = onSnapshot(q, (querySnapshot) => {
+                const tempFriends = []
+                querySnapshot.forEach((doc) => {
+                    tempFriends.push(doc.data().username)
+                })
+                setFriends(tempFriends)
+            })        
+    
+            return () => unsubscribe()
+        }       
 
-    // }, [])
+    }, [userInfo])
 
     return  (
         <div className='profile-wrapper'>            
@@ -56,7 +58,16 @@ export default function Profile() {
                 </div>
                 <div className='profile-field'>
                     <div>Follows:</div>
-                    <div>{friends ? friends : ''}</div>
+                    <div className='follow-links'>{friends ? 
+                    friends.map((friend) => {
+                        return (
+                            <>
+                            {friends.indexOf(friend) !== friends.length - 1 ? 
+                            <><Link to={{pathname: `/${friend}/profile`}}>{friend}</Link>, </> :
+                            <><Link to={{pathname: `/${friend}/profile`}}>{friend}</Link></>}
+                            </>
+                        )
+                    }) : ''}</div>
                 </div>
                 <Link to='/update-profile'>
                     <button className='signup-button'>Update Profile</button>

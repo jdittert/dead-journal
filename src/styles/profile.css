@@ -2,7 +2,8 @@
     padding: 1rem;
     padding-left: 5rem;
     display: grid;
-    grid-template-rows: min-content min-content min-content;
+    grid-template-rows: repeat(3, min-content);
+    width: 80%;
     justify-content: left;
 }
 
@@ -14,7 +15,7 @@
     display: grid;
     grid-template-rows: repeat(6, max-content);
     gap: 1rem;
-    width: clamp(400px, 1200px, 90%);
+    width: 100%;
     margin-bottom: 2rem;
 }
 
@@ -23,8 +24,15 @@
     grid-template-columns: 100px auto;
     justify-content: left;
     align-items: baseline;
-    max-width: 1200px;
-    min-width: min-content;
+    width: 100%;
+}
+
+.follow-links > a {
+    color: var(--header-light)
+}
+
+.follow-links > a:visited {
+    color: var(--header-light)
 }
 
 #update-profile-form {
