@@ -7,3 +7,18 @@
 .search-section > form > input {
     padding: .25rem;
 }
+
+.results {
+    margin-bottom: 2rem;
+}
+
+.example-accounts {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border: 2px solid var(--header-dark);
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--background-color);
+    border-radius: 8px;
+}

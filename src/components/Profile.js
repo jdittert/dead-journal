@@ -22,6 +22,7 @@ export default function Profile() {
                 querySnapshot.forEach((doc) => {
                     tempFriends.push(doc.data().username)
                 })
+                tempFriends.sort()
                 setFriends(tempFriends)
             })        
     
@@ -67,7 +68,7 @@ export default function Profile() {
                             <><Link to={{pathname: `/${friend}/profile`}}>{friend}</Link></>}
                             </>
                         )
-                    }) : ''}</div>
+                    }) : 'This user does not currently follow anyone.'}</div>
                 </div>
                 <Link to='/update-profile'>
                     <button className='signup-button'>Update Profile</button>

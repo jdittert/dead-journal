@@ -51,9 +51,15 @@ export default function FindFriends() {
             {results && <>
             <div className='small-title'>Results</div>
             <div className='results'>{results && results.length === 1 ? <Link to={{pathname: `/${results[0].username}/profile`}}>{results[0].username}</Link> :
-            results}</div>
-            </>
-            }    
+            results}</div>            
+            </>            
+            }  
+            <div className='example-accounts'>
+                <div>Just want to try the follow function? Check out these accounts:</div>
+                <div className='follow-links'><Link to={{pathname: `/dummyaccount1/profile`}}>dummyaccount1</Link></div>
+                <div className='follow-links'><Link to={{pathname: `/dummyaccount2/profile`}}>dummyaccount2</Link></div>
+                <div className='follow-links'><Link to={{pathname: `/dummyaccount3/profile`}}>dummyaccount3</Link></div>
+            </div> 
         </div>
     )
 }
