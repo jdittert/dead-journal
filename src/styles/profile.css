@@ -35,6 +35,11 @@
     color: var(--header-light)
 }
 
+.follow-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
 #update-profile-form {
     display: flex;
     flex-direction: column;
