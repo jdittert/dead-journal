@@ -10,7 +10,6 @@ import '../styles/profile.css';
 export default function UpdateProfile() {
     const { currentUser } = useAuth()
     const { userInfo } = useInfo()
-    const usernameRef = useRef()
     const birthdayRef = useRef()
     const locationRef = useRef()
     const hobbiesRef = useRef()
@@ -29,7 +28,6 @@ export default function UpdateProfile() {
 
         try {
             await updateDoc(userRef, {
-                username: usernameRef.current.value.replace(/[\W]/gm,'').toLowerCase(),
                 birthday: birthdayRef.current.value,
                 location: locationRef.current.value,
                 education: educationRef.current.value,
@@ -57,8 +55,7 @@ export default function UpdateProfile() {
                     <div className='profile-field'>
                         <label htmlFor='username'><strong>Username: </strong></label>
                         <div>
-                        <input id='username' ref={usernameRef} defaultValue={userInfo.username && userInfo.username} type='text' />
-                        <div className='reminder-text'>(Usernames may contain only lowercase letters and numbers.)</div>
+                        {userInfo.username && userInfo.username}
                         </div>
                     </div>
                     <div className='profile-field'>
