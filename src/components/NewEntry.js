@@ -54,10 +54,10 @@ export default function NewEntry() {
                     <div className='signup-inputs'>
                         <div className='input-group'>
                             <label htmlFor='new-entry-title'>Title:</label>
-                            <input type='text' ref={titleRef} />
+                            <input type='text' ref={titleRef} required />
                         </div>
                         <label htmlFor='new-entry-entry'>Entry:</label>
-                        <textarea id='new-entry-entry' name='new-entry-entry' rows='20' ref={entryRef}/>
+                        <textarea id='new-entry-entry' name='new-entry-entry' rows='20' ref={entryRef} required/>
                         <div className='new-entry-input-group'>
                             <div className='input-group'>
                                 <label htmlFor='new-entry-mood'>Mood:</label>
