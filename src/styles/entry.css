@@ -53,7 +53,13 @@
 
 .comment-bar {
     display: flex;
+    justify-content: space-between;
+}
+
+.comment-bar-left {
+    display: flex;
     gap: .25rem;
+    align-items: center;
 }
 
 .favorite {

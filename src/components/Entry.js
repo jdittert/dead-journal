@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import '../styles/entry.css'
 import heart from '../assets/imgs/favorite-heart.svg'
 import { useAuth } from '../contexts/AuthContext';
-import { doc, updateDoc, arrayUnion, Timestamp, getDoc } from 'firebase/firestore';
+import { doc, updateDoc, arrayUnion, Timestamp, getDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import Comment from './Comment';
 import { useInfo } from '../contexts/InfoContext';
@@ -14,6 +14,7 @@ export default function Entry(props) {
     const { userInfo } = useInfo()
     const commentRef = useRef()
     const [entryUser, setEntryUser] = useState('Anonymous')
+    const [message, setMessage] = useState('')
     
     async function handleFavorite(e) {
         e.preventDefault();
@@ -65,6 +66,14 @@ export default function Entry(props) {
         document.getElementById(`leave-comment-${id}`).classList.add('hidden')
     }
 
+    async function handleDelete(e) {
+        e.preventDefault()
+        const {id} = e.target.dataset
+
+        await deleteDoc(doc(db, 'entries', id))
+        setMessage('Entry deleted.')
+    }
+
     useEffect(() => {
         async function getEntryUser() {
             try{
@@ -81,6 +90,8 @@ export default function Entry(props) {
     })
 
     return (
+        <>
+        {message && <div className='error-message'>{message}</div>}
         <div className='entry' data-id={entry.id} key={entry.id}>
             <div className='entry-heading'>
                 <div className='entry-title'>{entry.title}</div>
@@ -97,21 +108,29 @@ export default function Entry(props) {
                 {entry.music && <div className='entry-music'><strong>Music:</strong> {entry.music}</div>}
             </div>
             <div className='comment-bar'>
-                <div className='favorite-info'>
-                    <div>{entry.likes.length}</div>
-                    <div className='favorite-image'>
-                        <button className='favorite-button' onClick={handleFavorite} data-id={entry.id} disabled={!currentUser}>
-                            <img src={heart} alt='Like' className='favorite' data-id={entry.id} />
+                <div className='comment-bar-left'>
+                    <div className='favorite-info'>
+                        <div>{entry.likes.length}</div>
+                        <div className='favorite-image'>
+                            <button className='favorite-button' onClick={handleFavorite} data-id={entry.id} disabled={!currentUser}>
+                                <img src={heart} alt='Like' className='favorite' data-id={entry.id} />
+                            </button>
+                        </div>
+                    </div>
+                    <div className='blue'>|</div>
+                    <div><button className='favorite-button' onClick={toggleComments} data-id={entry.id}>
+                        {entry.comments.length} {entry.comments.length === 1 ? 'Comment' : 'Comments'}
                         </button>
                     </div>
+                    <div className='blue'>|</div>
+                    <div><button className='favorite-button' onClick={leaveComment} data-id={entry.id} disabled={!currentUser}>Leave a Comment</button></div>
                 </div>
-                <div className='blue'>|</div>
-                <div><button className='favorite-button' onClick={toggleComments} data-id={entry.id}>
-                    {entry.comments.length} {entry.comments.length === 1 ? 'Comment' : 'Comments'}
-                    </button>
+                <div className='comment-bar-right'>
+                    {currentUser.uid === entry.user ? 
+                    <button className='cancel' data-id={entry.id} onClick={handleDelete}>Delete Entry</button> :
+                    <></>}
+                    
                 </div>
-                <div className='blue'>|</div>
-                <div><button className='favorite-button' onClick={leaveComment} data-id={entry.id} disabled={!currentUser}>Leave a Comment</button></div>
             </div>
             <div id={`comments-${entry.id}`} className='hidden comment-section'>
                 {entry.comments.map((comment) => {
@@ -135,5 +154,6 @@ export default function Entry(props) {
             </div>
             
         </div>
+        </>
     )
 }
