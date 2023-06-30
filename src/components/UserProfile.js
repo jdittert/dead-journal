@@ -23,7 +23,7 @@ export default function UserProfile() {
                 setLoading(true)      
                 const querySnapshot = await getDocs(q);
                 querySnapshot.forEach((doc) => {
-                    setUserProfile(doc.data())
+                    setUserProfile({...doc.data(), id: doc.id})
                 })         
             } catch {
                 setError('Profile failed to load.')

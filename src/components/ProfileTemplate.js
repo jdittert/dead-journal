@@ -1,4 +1,5 @@
-import React from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { useInfo } from '../contexts/InfoContext'
 import { db } from '../firebase'
@@ -8,6 +9,16 @@ export default function ProfileTemplate(props) {
     const { userProfile } = props
     const { currentUser } = useAuth()
     const { userInfo } = useInfo()
+    const [follow, setFollow] = useState(false)
+
+    useEffect(() => {        
+        
+        if(userInfo.follows) {
+            if(userInfo.follows.includes(userProfile.id)) {
+                setFollow(true)
+            } 
+        }
+    }, [follow])
 
     async function handleFollow(e) {
         e.preventDefault()
@@ -15,7 +26,6 @@ export default function ProfileTemplate(props) {
         const followee = []
 
         const { username } = e.target.dataset
-        console.log(userInfo.username, ' follows ', username)
 
         const follower = doc(db, 'users', currentUser.uid)
 
@@ -29,6 +39,7 @@ export default function ProfileTemplate(props) {
         await updateDoc(follower, {
             follows: arrayUnion(followee[0])
         })
+        setFollow(true)
     }
 
     async function handleUnfollow(e) {
@@ -37,7 +48,6 @@ export default function ProfileTemplate(props) {
         const followee = []
 
         const { username } = e.target.dataset
-        console.log(userInfo.username, ' follows ', username)
 
         const follower = doc(db, 'users', currentUser.uid)
 
@@ -51,6 +61,8 @@ export default function ProfileTemplate(props) {
         await updateDoc(follower, {
             follows: arrayRemove(followee[0])
         })
+        setFollow(false)
+
     }
 
     return (
@@ -85,14 +97,17 @@ export default function ProfileTemplate(props) {
                 </div>
             </div>
             <div className='follow-buttons'>
-                {currentUser &&
+                {follow === false ? <>{currentUser &&
                 <div>
                     <button className='signup-button' data-username={userProfile.username} onClick={handleFollow}>Follow {userProfile.username}</button>
                 </div>}
+                </> :
+                <>
                 {currentUser &&
                 <div>
                     <button className='signup-button' data-username={userProfile.username} onClick={handleUnfollow}>Unfollow {userProfile.username}</button>
                 </div>}
+                </>}
             </div>
             </>
     )
