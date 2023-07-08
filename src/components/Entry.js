@@ -15,6 +15,8 @@ export default function Entry(props) {
     const commentRef = useRef()
     const [entryUser, setEntryUser] = useState('Anonymous')
     const [message, setMessage] = useState('')
+    const [confirmation, setConfirmation] = useState(false)
+    const [loading, setLoading] = useState(false)
     
     async function handleFavorite(e) {
         e.preventDefault();
@@ -66,12 +68,25 @@ export default function Entry(props) {
         document.getElementById(`leave-comment-${id}`).classList.add('hidden')
     }
 
+    function openConfirmation(e) {
+        e.preventDefault()
+        setConfirmation(true)
+    }
+
     async function handleDelete(e) {
         e.preventDefault()
+        setLoading(true)
         const {id} = e.target.dataset
 
         await deleteDoc(doc(db, 'entries', id))
         setMessage('Entry deleted.')
+        setLoading(false)
+        setConfirmation(false)
+    }
+
+    function cancelDelete(e) {
+        e.preventDefault()
+        setConfirmation(false)
     }
 
     useEffect(() => {
@@ -92,6 +107,16 @@ export default function Entry(props) {
     return (
         <>
         {message && <div className='error-message'>{message}</div>}
+        {confirmation && 
+        <>
+        <div className='confirm-box'>
+            <div>Delete entry? This cannot be undone.</div>
+        <div className='confirm-buttons'>
+            <button className='signup-button' disabled={loading} data-id={entry.id} onClick={handleDelete}>Delete</button>
+            <button className='cancel' disabled={loading} onClick={cancelDelete}>Cancel</button>
+        </div>
+        </div>
+        </>}
         <div className='entry' data-id={entry.id} key={entry.id}>
             <div className='entry-heading'>
                 <div className='entry-title'>{entry.title}</div>
@@ -112,22 +137,22 @@ export default function Entry(props) {
                     <div className='favorite-info'>
                         <div>{entry.likes.length}</div>
                         <div className='favorite-image'>
-                            <button className='favorite-button' onClick={handleFavorite} data-id={entry.id} disabled={!currentUser}>
+                            <button className='favorite-button' onClick={handleFavorite} data-id={entry.id} disabled={!currentUser || confirmation}>
                                 <img src={heart} alt='Like' className='favorite' data-id={entry.id} />
                             </button>
                         </div>
                     </div>
                     <div className='blue'>|</div>
-                    <div><button className='favorite-button' onClick={toggleComments} data-id={entry.id}>
+                    <div><button className='favorite-button' onClick={toggleComments} data-id={entry.id} disabled={confirmation}>
                         {entry.comments.length} {entry.comments.length === 1 ? 'Comment' : 'Comments'}
                         </button>
                     </div>
                     <div className='blue'>|</div>
-                    <div><button className='favorite-button' onClick={leaveComment} data-id={entry.id} disabled={!currentUser}>Leave a Comment</button></div>
+                    <div><button className='favorite-button' onClick={leaveComment} data-id={entry.id} disabled={!currentUser || confirmation}>Leave a Comment</button></div>
                 </div>
                 <div className='comment-bar-right'>
                     {currentUser.uid === entry.user ? 
-                    <button className='cancel' data-id={entry.id} onClick={handleDelete}>Delete Entry</button> :
+                    <button className='cancel' data-id={entry.id} onClick={openConfirmation} disabled={confirmation}>Delete Entry</button> :
                     <></>}
                     
                 </div>
