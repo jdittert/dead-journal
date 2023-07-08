@@ -70,7 +70,31 @@ body {
     padding: .5rem;
     font-weight: bold;
     background-color: var(--background-color);
-    margin-bottom: 1rem;
+    margin-bottom: 1rem;    
+}
+
+.error-button {
+    background-color: var(--error-color);
+}
+
+.success-button {
+    background-color: var(--icon-fill);
+}
+
+.error-content, .success-content {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+}
+
+.error-button, .success-button {    
+    color: var(--background-color);
+    padding: .25rem;
+    border-radius: 4px;
+    box-shadow: 1px 1px 1px 1px gray;
+    border: none;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 a:visited {

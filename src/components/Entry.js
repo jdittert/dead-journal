@@ -89,6 +89,11 @@ export default function Entry(props) {
         setConfirmation(false)
     }
 
+    function resetMessage(e) {
+        e.preventDefault()
+        setMessage('')
+    }
+
     useEffect(() => {
         async function getEntryUser() {
             try{
@@ -106,7 +111,16 @@ export default function Entry(props) {
 
     return (
         <>
-        {message && <div className='error-message'>{message}</div>}
+        {/* Message for successful entry deletion */} 
+        {message && <div className='error-message'>
+            <div className='error-content'>
+                {message}
+                <button className='error-button' onClick={resetMessage}>X</button>
+            </div>
+            </div>
+        }
+
+        {/* Confirmation dialogue for deleting entry */}
         {confirmation && 
         <>
         <div className='confirm-box'>
@@ -116,7 +130,9 @@ export default function Entry(props) {
             <button className='cancel' disabled={loading} onClick={cancelDelete}>Cancel</button>
         </div>
         </div>
-        </>}
+        </>
+        }
+        
         <div className='entry' data-id={entry.id} key={entry.id}>
             <div className='entry-heading'>
                 <div className='entry-title'>{entry.title}</div>
