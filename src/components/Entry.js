@@ -151,7 +151,7 @@ export default function Entry(props) {
                     <div><button className='favorite-button' onClick={leaveComment} data-id={entry.id} disabled={!currentUser || confirmation}>Leave a Comment</button></div>
                 </div>
                 <div className='comment-bar-right'>
-                    {currentUser.uid === entry.user ? 
+                    {currentUser && currentUser.uid === entry.user ? 
                     <button className='cancel' data-id={entry.id} onClick={openConfirmation} disabled={confirmation}>Delete Entry</button> :
                     <></>}
                     
