@@ -3,6 +3,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../firebase';
+import Error from './Error';
 import '../styles/signup.css'
 
 export default function Signup() {
@@ -14,6 +15,11 @@ export default function Signup() {
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
+
+    function resetError(e) {
+        e.preventDefault()
+        setError('')
+    }
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -42,8 +48,7 @@ export default function Signup() {
         <>
         <div className='signup-form'>
             <h1 className='center-text'>Sign Up</h1>
-            {error && <div>
-                {error}</div>}
+            {error && <Error error={error} resetError={resetError} />}
             {currentUser && currentUser.email}
             <form onSubmit={handleSubmit}
             className='signup-inputs'>

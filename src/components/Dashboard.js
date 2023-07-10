@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { useInfo } from '../contexts/InfoContext';
 import { updateEmail, updatePassword } from 'firebase/auth';
 import '../styles/dashboard.css';
+import Error from './Error';
+import Message from './Message';
 
 function Dashboard() {
     const [error, setError] = useState('')
@@ -90,17 +92,8 @@ function Dashboard() {
             </div>
             <div className='dashboard-update'>
                 <div>Update your information.</div>
-                {error && <div className='error-message'>
-                        <div className='error-content'>{error}
-                        <button className='error-button' onClick={resetError}>X</button>
-                        </div>
-                    </div>
-                }
-                {message && <div className='success-message'>
-                    <div className='success-content'>{message}
-                    <button className='success-button' onClick={resetMessage}>X</button></div>
-                    </div>
-                }
+                {error && <Error error={error} resetError={resetError} />}
+                {message && <Message message={message} resetMessage={resetMessage} />}
                 <div className='dashboard-update-forms'>
                     <div className='signup-form'>
                         <h3>Update your email address</h3>

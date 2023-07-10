@@ -2,12 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { db } from '../firebase';
 import { collection, query, where, onSnapshot, orderBy, getDocs } from 'firebase/firestore';
 import Entry from './Entry';
+import Error from './Error';
 import { useParams } from 'react-router-dom';
 
 export default function UserEntries() {
     const { user } = useParams()
     const [error, setError] = useState('')
     const [entries, setEntries] = useState([])
+
+    function resetError(e) {
+        e.preventDefault()
+        setError('')
+    }
     
     async function getUser() {
         const u = query(collection(db, 'users'), where('username', '==', user))
@@ -43,7 +49,7 @@ export default function UserEntries() {
     return (
         <div className='main-wrapper'>
             <div className='page-title'>{user}'s Entries</div>
-            {error && <div className='error-message'>{error}</div>}
+            {error && <Error error={error} resetError={resetError} />}
             {entries.map((entry) => {
                 return (
                     <>

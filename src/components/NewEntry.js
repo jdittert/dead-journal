@@ -2,6 +2,8 @@ import React, { useRef, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { db } from '../firebase';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
+import Error from './Error';
+import Message from './Message';
 import '../styles/new-entry.css'
 
 export default function NewEntry() {
@@ -15,6 +17,16 @@ export default function NewEntry() {
     const [loading, setLoading] = useState(false)
     const [message, setMessage] = useState('')
 
+    function resetError(e) {
+        e.preventDefault()
+        setError('')
+    }
+
+    function resetMessage(e) {
+        e.preventDefault()
+        setMessage('')
+    }
+    
     async function handleSubmit(e) {
         e.preventDefault()
         setError('')
@@ -47,8 +59,8 @@ export default function NewEntry() {
             <div className='entry-form'>
                 <div className='new-entry-heading'>
                     <h1>New Entry</h1>
-                    {message && <div className='success-message'>{message}</div>}
-                    {error && <div className='error-message'>{error}</div>}
+                    {message && <Message message={message} resetMessage={resetMessage} />}
+                    {error && <Error error={error} resetError={resetError} />}
                 </div>
                 <form id='new-entry-form' onSubmit={handleSubmit}>
                     <div className='signup-inputs'>

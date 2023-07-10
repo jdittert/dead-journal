@@ -4,12 +4,18 @@ import { useInfo } from '../contexts/InfoContext';
 import { db } from '../firebase';
 import { collection, query, where, orderBy, onSnapshot} from 'firebase/firestore';
 import Entry from './Entry';
+import Error from './Error';
 
 export default function Friends() {
     const { userInfo } = useInfo()
     const [error, setError] = useState('')
     const [entries, setEntries] = useState([])
     const entriesRef = collection(db, 'entries')  
+
+    function resetError(e) {
+        e.preventDefault()
+        setError('')
+    }
     
     useEffect(() => {
         setError('')
@@ -33,7 +39,7 @@ export default function Friends() {
 
     return (
         <div className='main-wrapper'>
-            {error && <div className='error-message'>{error}</div>}
+            {error && <Error error={error} resetError={resetError} />}
             <div className='small-title'>{userInfo.username}'s Friends' Entries:</div>
             {entries.length === 0 ? 
             <div>This user has no friend entries.</div> : 

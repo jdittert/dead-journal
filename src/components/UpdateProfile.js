@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { db } from '../firebase';
 import { doc, updateDoc } from 'firebase/firestore';
 import { useInfo } from '../contexts/InfoContext';
+import Message from './Message';
+import Error from './Error';
 import '../styles/profile.css';
 
 export default function UpdateProfile() {
@@ -19,6 +21,16 @@ export default function UpdateProfile() {
     const [loading, setLoading] = useState(false)
 
     const userRef = doc(db, 'users', currentUser.uid)
+
+    function resetMessage(e) {
+        e.preventDefault()
+        setMessage('')
+    }
+
+    function resetError(e) {
+        e.preventDefault()
+        setError('')
+    }
     
     async function handleSubmit(e) {
         e.preventDefault()
@@ -48,8 +60,8 @@ export default function UpdateProfile() {
             <div className='update-form'>
                 <div className='update-heading'>
                     <h1>Update Profile</h1>
-                    {message && <div className='success-message'>{message}</div>}
-                    {error && <div className='error-message'>{error}</div>}
+                    {message && <Message message={message} resetMessage={resetMessage} />}
+                    {error && <Error error={error} resetError={resetError} />}
                 </div>
                 <form id='update-profile-form' onSubmit={handleSubmit}>
                     <div className='profile-field'>

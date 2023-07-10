@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
+import Error from './Error';
 import '../styles/signup.css'
 
 export default function Login() {
@@ -10,6 +11,11 @@ export default function Login() {
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
+
+    function resetError(e) {
+        e.preventDefault()
+        setError('')
+    }
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -31,8 +37,7 @@ export default function Login() {
         <div className='splash-wrapper'>
             <div className='signup-form'>
                 <h1 className='center-text'>Log In</h1>
-                {error && <div className='error-message'>
-                    {error}</div>}
+                {error && <Error error={error} resetError={resetError} />}
                 <form onSubmit={handleSubmit}
                 className='signup-inputs'>
                     <label htmlFor='email'>Email</label>
