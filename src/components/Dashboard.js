@@ -18,6 +18,9 @@ function Dashboard() {
     const confirmEmailRef = useRef()
     const passwordRef = useRef()
     const confirmPasswordRef = useRef()
+    // const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const creationDate = currentUser.metadata.creationTime
+    // const readDate = creationDate.toLocaleDateString()
 
     async function handleUpdateEmail(e) {
         e.preventDefault()
@@ -81,6 +84,11 @@ function Dashboard() {
         setMessage('')
     }
 
+    function toggleUpdate(e) {
+        e.preventDefault()
+        document.querySelector('.dashboard-update').classList.toggle('hidden')
+    }
+
     return (
         <>        
         <div className='main-wrapper'>
@@ -90,8 +98,12 @@ function Dashboard() {
                     <button onClick={handleLogout} className='signup-button'>Log Out</button>
                 </div>
             </div>
-            <div className='dashboard-update'>
-                <div>Update your information.</div>
+            <div>
+                You have been a DeadJournal user since {creationDate}.
+            </div>
+            <div><button className='signup-button' onClick={toggleUpdate}>Update your email and/or password</button></div>
+            <div className='dashboard-update hidden'>                
+                <div><em>If it has been more than 5 minutes since your last login, you will need to logout and login again in order to update your information.</em></div>
                 {error && <Error error={error} resetError={resetError} />}
                 {message && <Message message={message} resetMessage={resetMessage} />}
                 <div className='dashboard-update-forms'>
