@@ -18,9 +18,9 @@ function Dashboard() {
     const confirmEmailRef = useRef()
     const passwordRef = useRef()
     const confirmPasswordRef = useRef()
-    // const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    const creationDate = currentUser.metadata.creationTime
-    // const readDate = creationDate.toLocaleDateString()
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const creationDate =  new Date(Date.parse(currentUser.metadata.creationTime))
+    const readDate = creationDate.toLocaleDateString(undefined, options)
 
     async function handleUpdateEmail(e) {
         e.preventDefault()
@@ -99,7 +99,7 @@ function Dashboard() {
                 </div>
             </div>
             <div>
-                You have been a DeadJournal user since {creationDate}.
+                You have been a DeadJournal user since {readDate}.
             </div>
             <div><button className='signup-button' onClick={toggleUpdate}>Update your email and/or password</button></div>
             <div className='dashboard-update hidden'>                
