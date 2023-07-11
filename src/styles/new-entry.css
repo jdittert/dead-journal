@@ -31,3 +31,21 @@
     width: 80%;
     padding: .25rem;
 }
+
+.toolbar-class {
+    border: 2px solid var(--header-dark)
+}
+
+.editor-class {
+    background-color: var(--background-color);
+    padding: .5rem;
+    border: 1px solid var(--header-dark);
+    border-radius: 4px;
+    min-height: 15rem;
+}
+
+.wrapper-class {
+    padding: 1rem;
+    border: 1px solid var(--header-dark);
+    border-radius: 4px;
+}

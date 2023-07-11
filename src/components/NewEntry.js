@@ -1,21 +1,38 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { db } from '../firebase';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import Error from './Error';
 import Message from './Message';
 import '../styles/new-entry.css'
+import { EditorState } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import { convertToHTML } from 'draft-convert';
+import DOMPurify from 'dompurify';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
 export default function NewEntry() {
     const moodRef = useRef()
     const locationRef = useRef()
     const musicRef = useRef()
-    const entryRef = useRef()
     const titleRef = useRef()
     const { currentUser } = useAuth()
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
     const [message, setMessage] = useState('')
+    const [editorState, setEditorState] = useState(() => EditorState.createEmpty())  
+    const [convertedContent, setConvertedContent] = useState(null)  
+
+    function createMarkup(html) {
+        return {
+            __html: DOMPurify.sanitize(html)
+        }
+    }
+
+    useEffect(() => {
+        let html = convertToHTML(editorState.getCurrentContent())
+        setConvertedContent(html)
+    }, [editorState])
 
     function resetError(e) {
         e.preventDefault()
@@ -38,7 +55,7 @@ export default function NewEntry() {
                 mood: moodRef.current.value,
                 location: locationRef.current.value,
                 music: musicRef.current.value,
-                entry: entryRef.current.value,
+                entry: createMarkup(convertedContent),
                 title: titleRef.current.value, 
                 timestamp: Timestamp.now(),
                 likes: [], 
@@ -69,7 +86,11 @@ export default function NewEntry() {
                             <input type='text' ref={titleRef} required />
                         </div>
                         <label htmlFor='new-entry-entry'>Entry:</label>
-                        <textarea id='new-entry-entry' name='new-entry-entry' rows='20' ref={entryRef} required/>
+                        <Editor editorState={editorState}
+                            onEditorStateChange={setEditorState}
+                            wrapperClassName='wrapper-class'
+                            editorClassName='editor-class'
+                            toolbarClassName='toolbar-class' />
                         <div className='new-entry-input-group'>
                             <div className='input-group'>
                                 <label htmlFor='new-entry-mood'>Mood:</label>
