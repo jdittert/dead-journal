@@ -142,7 +142,7 @@ export default function Entry(props) {
                 </div>
             </div>
             <div className='entry-date'>{entry.timestamp.toDate().toDateString()}</div>
-            <div className='entry-entry'>{entry.entry}</div>
+            <div className='entry-entry' dangerouslySetInnerHTML={entry.entry} ></div>
             <div className='entry-details'>
                 {entry.mood && <div className='entry-mood'><strong>Mood:</strong> {entry.mood}</div>}                
                 {entry.location && <div className='entry-location'><strong>Location:</strong> {entry.location}</div>}

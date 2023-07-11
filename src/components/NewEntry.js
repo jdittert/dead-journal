@@ -63,6 +63,7 @@ export default function NewEntry() {
             }) 
             e.target.reset();
             setMessage('Entry added.')
+            setEditorState(() => EditorState.createEmpty())
         } catch {
             setError('Failed to log entry.')
         } finally {
