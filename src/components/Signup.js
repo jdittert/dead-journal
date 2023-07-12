@@ -1,10 +1,10 @@
 import React, { useRef, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, setDoc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { db } from '../firebase';
-import Error from './Error';
 import '../styles/signup.css'
+import ErrorMessage from './ErrorMessage';
 
 export default function Signup() {
     const usernameRef = useRef()
@@ -24,6 +24,10 @@ export default function Signup() {
     async function handleSubmit(e) {
         e.preventDefault()
 
+        const username = usernameRef.current.value.replace(/[\W]/gm,'').toLowerCase()
+
+        
+
         if (passwordRef.current.value !== passwordConfirmRef.current.value) {
             return setError('Passwords do not match')
         }
@@ -31,15 +35,32 @@ export default function Signup() {
         try {
             setError('')
             setLoading(true)
+            const docRef = doc(db, 'users', 'unique-names')         
+            const docSnap = await getDoc(docRef)
+            const usernames = docSnap.data().usernames
+            if (usernames.includes(username)) throw new Error('Username already taken.')
             const cred = await signup(emailRef.current.value, passwordRef.current.value)
             await setDoc((doc(db, 'users', cred.user.uid)), {
-                username: usernameRef.current.value.replace(/[\W]/gm,'').toLowerCase(),
+                username: username,
                 email: cred.user.email
             })
+            await updateDoc((doc(db, 'users', 'unique-names')), {
+                usernames: arrayUnion(username)
+            })
             navigate('/')
-        } catch {
-            setError('Failed to create an account')
-        } 
+        } catch(err) {
+            if (err) {
+                setError(err.message)
+            } else {
+                setError('Failed to create an account.')
+            }
+            
+            }
+        
+            // await updateDoc(docRef, {
+            //     usernames: arrayUnion(username)
+            // })
+            
 
         setLoading(false)
     }
@@ -48,7 +69,7 @@ export default function Signup() {
         <>
         <div className='signup-form'>
             <h1 className='center-text'>Sign Up</h1>
-            {error && <Error error={error} resetError={resetError} />}
+            {error && <ErrorMessage error={error} resetError={resetError} />}
             {currentUser && currentUser.email}
             <form onSubmit={handleSubmit}
             className='signup-inputs'>

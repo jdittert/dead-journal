@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { db } from '../firebase';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
-import Error from './Error';
 import Message from './Message';
 import '../styles/new-entry.css'
 import { EditorState } from 'draft-js';
@@ -10,6 +9,7 @@ import { Editor } from 'react-draft-wysiwyg';
 import { convertToHTML } from 'draft-convert';
 import DOMPurify from 'dompurify';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
+import ErrorMessage from './ErrorMessage';
 
 export default function NewEntry() {
     const moodRef = useRef()
@@ -78,7 +78,7 @@ export default function NewEntry() {
                 <div className='new-entry-heading'>
                     <h1>New Entry</h1>
                     {message && <Message message={message} resetMessage={resetMessage} />}
-                    {error && <Error error={error} resetError={resetError} />}
+                    {error && <ErrorMessage error={error} resetError={resetError} />}
                 </div>
                 <form id='new-entry-form' onSubmit={handleSubmit}>
                     <div className='signup-inputs'>

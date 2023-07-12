@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { db } from '../firebase';
 import { query, collection, where, getDocs } from 'firebase/firestore';
-import Error from './Error';
 import '../styles/profile.css'
 import ProfileTemplate from './ProfileTemplate';
+import ErrorMessage from './ErrorMessage';
 
 export default function UserProfile() {
     const { user } = useParams()
@@ -45,7 +45,7 @@ export default function UserProfile() {
 
     return  (
         <div className='profile-wrapper'>
-            {error && <Error error={error} resetError={resetError} />} 
+            {error && <ErrorMessage error={error} resetError={resetError} />} 
             {loading ? <div>Loading</div> : 
             userProfile ? <ProfileTemplate userProfile={userProfile} /> :
             <div className='error-message'>Profile does not exist.</div>}                             

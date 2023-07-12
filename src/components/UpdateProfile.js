@@ -6,8 +6,8 @@ import { db } from '../firebase';
 import { doc, updateDoc } from 'firebase/firestore';
 import { useInfo } from '../contexts/InfoContext';
 import Message from './Message';
-import Error from './Error';
 import '../styles/profile.css';
+import ErrorMessage from './ErrorMessage';
 
 export default function UpdateProfile() {
     const { currentUser } = useAuth()
@@ -61,7 +61,7 @@ export default function UpdateProfile() {
                 <div className='update-heading'>
                     <h1>Update Profile</h1>
                     {message && <Message message={message} resetMessage={resetMessage} />}
-                    {error && <Error error={error} resetError={resetError} />}
+                    {error && <ErrorMessage error={error} resetError={resetError} />}
                 </div>
                 <form id='update-profile-form' onSubmit={handleSubmit}>
                     <div className='profile-field'>

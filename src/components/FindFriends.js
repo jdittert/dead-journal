@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 import { Link } from 'react-router-dom';
-import Error from './Error';
+import ErrorMessage from './ErrorMessage';
 import '../styles/find-friends.css'
 
 export default function FindFriends() {
@@ -43,7 +43,7 @@ export default function FindFriends() {
             <div className='small-title'>
             DeadJournal is better with friends!
             </div>
-            {error && <Error error={error} resetError={resetError} />}
+            {error && <ErrorMessage error={error} resetError={resetError} />}
             <div className='search-section'>
                 <form id='find-friends' onSubmit={onSubmit}>
                 <label htmlFor='search-by-username'>Search by username:</label>

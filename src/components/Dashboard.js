@@ -4,8 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { useInfo } from '../contexts/InfoContext';
 import { updateEmail, updatePassword } from 'firebase/auth';
 import '../styles/dashboard.css';
-import Error from './Error';
+import ErrorMessage from './ErrorMessage';
 import Message from './Message';
+import { doc, updateDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 
 function Dashboard() {
     const [error, setError] = useState('')
@@ -32,8 +34,11 @@ function Dashboard() {
 
         try {
             setLoading(true)
-
             await updateEmail(currentUser, emailRef.current.value)
+            const docRef = doc(db, 'users', currentUser.uid)
+            await updateDoc(docRef, {
+                email: emailRef.current.value
+            })
             setMessage('Email updated.')
         } catch {
             setError('Failed to update information.')
@@ -104,7 +109,7 @@ function Dashboard() {
             <div><button className='signup-button' onClick={toggleUpdate}>Update your email and/or password</button></div>
             <div className='dashboard-update hidden'>                
                 <div><em>If it has been more than 5 minutes since your last login, you will need to logout and login again in order to update your information.</em></div>
-                {error && <Error error={error} resetError={resetError} />}
+                {error && <ErrorMessage error={error} resetError={resetError} />}
                 {message && <Message message={message} resetMessage={resetMessage} />}
                 <div className='dashboard-update-forms'>
                     <div className='signup-form'>

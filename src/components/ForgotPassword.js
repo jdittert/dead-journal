@@ -2,8 +2,8 @@ import React, { useRef, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import Message from './Message';
-import Error from './Error';
 import '../styles/signup.css'
+import ErrorMessage from './ErrorMessage';
 
 export default function ForgotPassword() {
     const emailRef = useRef()
@@ -43,7 +43,7 @@ export default function ForgotPassword() {
         <div className='splash-wrapper'>
             <div className='signup-form'>
                 <h1 className='center-text'>Password Reset</h1>
-                {error && <Error error={error} resetError={resetError} />}
+                {error && <ErrorMessage error={error} resetError={resetError} />}
                 {message && <Message message={message} resetMessage={resetMessage} />}
                 <form onSubmit={handleSubmit}
                 className='signup-inputs'>

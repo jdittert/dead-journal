@@ -3,7 +3,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { db } from '../firebase';
 import { collection, query, where, onSnapshot, orderBy} from 'firebase/firestore';
 import Entry from './Entry';
-import Error from './Error';
+import ErrorMessage from './ErrorMessage';
 import { useInfo } from '../contexts/InfoContext';
 
 export default function Entries() {
@@ -37,7 +37,7 @@ export default function Entries() {
     return (
         <div className='main-wrapper'>
             <div className='page-title'>{userInfo.username ? userInfo.username : currentUser.email}'s Entries</div>
-            {error && <Error error={error} resetError={resetError} />}
+            {error && <ErrorMessage error={error} resetError={resetError} />}
             {entries.length === 0 ? 
             <div>This user has no public entries.</div> : 
             entries.map((entry) => {

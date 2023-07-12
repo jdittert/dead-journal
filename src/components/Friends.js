@@ -4,7 +4,7 @@ import { useInfo } from '../contexts/InfoContext';
 import { db } from '../firebase';
 import { collection, query, where, orderBy, onSnapshot} from 'firebase/firestore';
 import Entry from './Entry';
-import Error from './Error';
+import ErrorMessage from './ErrorMessage';
 
 export default function Friends() {
     const { userInfo } = useInfo()
@@ -39,7 +39,7 @@ export default function Friends() {
 
     return (
         <div className='main-wrapper'>
-            {error && <Error error={error} resetError={resetError} />}
+            {error && <ErrorMessage error={error} resetError={resetError} />}
             <div className='small-title'>{userInfo.username}'s Friends' Entries:</div>
             {entries.length === 0 ? 
             <div>This user has no friend entries.</div> : 

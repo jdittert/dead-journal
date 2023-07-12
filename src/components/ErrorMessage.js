@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Error(props) {
+export default function ErrorMessage(props) {
     const { error } = props
     const { resetError } = props
 

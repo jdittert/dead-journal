@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
-import Error from './Error';
 import '../styles/signup.css'
+import ErrorMessage from './ErrorMessage';
 
 export default function Login() {
     const emailRef = useRef()
@@ -37,7 +37,7 @@ export default function Login() {
         <div className='splash-wrapper'>
             <div className='signup-form'>
                 <h1 className='center-text'>Log In</h1>
-                {error && <Error error={error} resetError={resetError} />}
+                {error && <ErrorMessage error={error} resetError={resetError} />}
                 <form onSubmit={handleSubmit}
                 className='signup-inputs'>
                     <label htmlFor='email'>Email</label>
