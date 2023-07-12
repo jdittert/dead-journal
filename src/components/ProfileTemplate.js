@@ -3,13 +3,15 @@ import React, { useEffect, useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { useInfo } from '../contexts/InfoContext'
 import { db } from '../firebase'
-import { doc, updateDoc, arrayUnion, collection, query, where, getDocs, arrayRemove } from 'firebase/firestore'
+import { Link } from 'react-router-dom'
+import { doc, updateDoc, arrayUnion, collection, query, where, getDocs, arrayRemove, documentId } from 'firebase/firestore'
 
 export default function ProfileTemplate(props) {
     const { userProfile } = props
     const { currentUser } = useAuth()
     const { userInfo } = useInfo()
     const [follow, setFollow] = useState(false)
+    const [profileFollows, setProfileFollows] = useState()
 
     useEffect(() => {        
         
@@ -18,7 +20,25 @@ export default function ProfileTemplate(props) {
                 setFollow(true)
             } 
         }
-    }, [follow])
+
+        
+        if(userProfile.follows) {
+
+            async function getProfileFollows() {
+                const q = query(collection(db, 'users'), where(documentId(), 'in', userProfile.follows))
+                const querySnapshot = await getDocs(q)
+                const tempFollows = []
+                querySnapshot.forEach((doc) => {
+                    tempFollows.push(doc.data().username)
+                })
+                tempFollows.sort()
+                setProfileFollows(tempFollows)
+        }
+
+        getProfileFollows()
+
+        }       
+    }, [follow, userProfile])
 
     async function handleFollow(e) {
         e.preventDefault()
@@ -93,7 +113,16 @@ export default function ProfileTemplate(props) {
                 </div>
                 <div className='profile-field'>
                     <div>Follows:</div>
-                    <div>{userProfile.follows ? userProfile.follows : 'This user does not currently follow anyone.'}</div>
+                    <div className='follow-links'>{profileFollows ? 
+                    profileFollows.map((friend) => {
+                        return (
+                            <>
+                            {profileFollows.indexOf(friend) !== profileFollows.length - 1 ? 
+                            <><Link to={{pathname: `/${friend}/profile`}}>{friend}</Link>, </> :
+                            <><Link to={{pathname: `/${friend}/profile`}}>{friend}</Link></>}
+                            </>
+                        )
+                    }) : 'This user does not currently follow anyone.'}</div>
                 </div>
             </div>
             <div className='follow-buttons'>
