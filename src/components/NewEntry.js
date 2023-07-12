@@ -112,7 +112,7 @@ export default function NewEntry() {
                         </div>
                                                 
                     </div>
-                <button type='submit' disabled={loading} className='signup-button'>Post Entry</button>
+                <button type='submit' disabled={loading} className='signup-button new-entry-submit'>Post Entry</button>
                 </form>
             </div>
         </div>        
