@@ -19,9 +19,11 @@ export default function UserProfile() {
         setError('')
     }
 
-    const q = query(usersRef, where('username', '==', user))
+    
 
     useEffect(() => {
+        const q = query(usersRef, where('username', '==', user))
+
         async function getInfo() {
             setError('')
     
@@ -39,7 +41,7 @@ export default function UserProfile() {
         }
 
         getInfo()
-    }, [])
+    }, [user])
     
     
 
