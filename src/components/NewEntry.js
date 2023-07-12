@@ -97,7 +97,7 @@ export default function NewEntry() {
                             }}
                             />
                         <div className='new-entry-input-group'>
-                            <div className='input-group'>
+                            <div className='input-group new-entry-mood'>
                                 <label htmlFor='new-entry-mood'>Mood:</label>
                                 <input type='text' ref={moodRef} />
                             </div>

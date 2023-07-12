@@ -21,15 +21,19 @@
 }
 
 .input-group {
-    display: flex;
-    gap: 1rem;
-    padding-right: 2rem;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
     align-items: center;
 }
 
 .input-group > input {
-    width: 80%;
+    width: 100%;
     padding: .25rem;
+}
+
+.new-entry-mood {
+    width: 100%;
+    padding-right: 2rem;
 }
 
 .toolbar-class {
