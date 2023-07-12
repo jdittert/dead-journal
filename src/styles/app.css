@@ -98,13 +98,13 @@ body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-a:visited {
+.link-white, .link-white:visited {
     text-decoration: none;
     color: white;
 }
 
-a {
-    color: white;
+a, a:visited {
+    color: var(--header-light);
     text-decoration: none;
 }
 

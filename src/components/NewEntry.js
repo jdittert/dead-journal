@@ -93,7 +93,7 @@ export default function NewEntry() {
                             editorClassName='editor-class'
                             toolbarClassName='toolbar-class'
                             toolbar={{
-                                options: ['inline', 'blockType', 'fontSize', 'list', 'textAlign', 'colorPicker', 'link']
+                                options: ['inline', 'blockType', 'fontSize', 'list', 'textAlign', 'colorPicker']
                             }}
                             />
                         <div className='new-entry-input-group'>

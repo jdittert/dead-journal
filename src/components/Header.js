@@ -39,10 +39,10 @@ function Header() {
                 </> :
                 <>
                 <div id='header-login'>
-                    <Link to='/login'>LOG IN</Link>
+                    <Link to='/login' className='link-white'>LOG IN</Link>
                 </div>
                 <div id='header-signup'>
-                    <Link to='/signup'>SIGN UP</Link>
+                    <Link to='/signup' className='link-white'>SIGN UP</Link>
                 </div>
                 </>
                 }
@@ -51,12 +51,12 @@ function Header() {
         <div className='header-bottom'>
             {currentUser ? 
             <>
-            <div><Link to='/'>Dashboard</Link></div>
-            <div><Link to='/profile'>Profile</Link></div>
-            <div><Link to='/entries'>Entries</Link></div>
-            <div><Link to='/new-entry'>New Entry</Link></div>
-            <div><Link to='friends'>Friends</Link></div>
-            <div><Link to='/find-friends'>Find Friends</Link></div>
+            <div><Link to='/' className='link-white'>Dashboard</Link></div>
+            <div><Link to='/profile' className='link-white'>Profile</Link></div>
+            <div><Link to='/entries' className='link-white'>Entries</Link></div>
+            <div><Link to='/new-entry' className='link-white'>New Entry</Link></div>
+            <div><Link to='friends' className='link-white'>Friends</Link></div>
+            <div><Link to='/find-friends' className='link-white'>Find Friends</Link></div>
             </> :
             <div></div>}
         </div>
