@@ -3,6 +3,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { doc, setDoc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { db } from '../firebase';
+import Filter from 'bad-words'
 import '../styles/signup.css'
 import ErrorMessage from './ErrorMessage';
 
@@ -15,6 +16,7 @@ export default function Signup() {
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
+    const filter = new Filter()
 
     function resetError(e) {
         e.preventDefault()
@@ -24,12 +26,14 @@ export default function Signup() {
     async function handleSubmit(e) {
         e.preventDefault()
 
-        const username = usernameRef.current.value.replace(/[\W]/gm,'').toLowerCase()
-
-        
+        const username = usernameRef.current.value.replace(/[\W]/gm,'').toLowerCase()        
 
         if (passwordRef.current.value !== passwordConfirmRef.current.value) {
             return setError('Passwords do not match')
+        }
+
+        if (filter.isProfane(username)) {
+            return setError('Unacceptable username')
         }
 
         try {
@@ -56,10 +60,6 @@ export default function Signup() {
             }
             
             }
-        
-            // await updateDoc(docRef, {
-            //     usernames: arrayUnion(username)
-            // })
             
 
         setLoading(false)

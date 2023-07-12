@@ -4,9 +4,9 @@ import { db } from '../firebase';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import Message from './Message';
 import '../styles/new-entry.css'
-import { EditorState } from 'draft-js';
+import { EditorState, convertToRaw } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
-import { convertToHTML } from 'draft-convert';
+import draftToHtml from 'draftjs-to-html';
 import DOMPurify from 'dompurify';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import ErrorMessage from './ErrorMessage';
@@ -21,7 +21,7 @@ export default function NewEntry() {
     const [loading, setLoading] = useState(false)
     const [message, setMessage] = useState('')
     const [editorState, setEditorState] = useState(() => EditorState.createEmpty())  
-    const [convertedContent, setConvertedContent] = useState(null)  
+    const [convertedContent, setConvertedContent] = useState(null)
 
     function createMarkup(html) {
         return {
@@ -30,7 +30,7 @@ export default function NewEntry() {
     }
 
     useEffect(() => {
-        let html = convertToHTML(editorState.getCurrentContent())
+        let html = draftToHtml(convertToRaw(editorState.getCurrentContent()))
         setConvertedContent(html)
     }, [editorState])
 
