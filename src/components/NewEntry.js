@@ -91,7 +91,11 @@ export default function NewEntry() {
                             onEditorStateChange={setEditorState}
                             wrapperClassName='wrapper-class'
                             editorClassName='editor-class'
-                            toolbarClassName='toolbar-class' />
+                            toolbarClassName='toolbar-class'
+                            toolbar={{
+                                options: ['inline', 'blockType', 'fontSize', 'list', 'textAlign', 'colorPicker', 'link']
+                            }}
+                            />
                         <div className='new-entry-input-group'>
                             <div className='input-group'>
                                 <label htmlFor='new-entry-mood'>Mood:</label>
