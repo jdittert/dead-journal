@@ -20,7 +20,6 @@ export default function ProfileTemplate(props) {
                 setFollow(true)
             } 
         }
-
         
         if(userProfile.follows) {
 

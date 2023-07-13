@@ -19,6 +19,7 @@ import UserProfile from './UserProfile'
 import UserEntries from './UserEntries'
 import FindFriends from './FindFriends'
 import Friends from './Friends'
+import PageNotFound from './PageNotFound'
  
  function App() {  
     return (
@@ -71,6 +72,7 @@ import Friends from './Friends'
                             <PublicRoute>
                                 <ForgotPassword />
                             </PublicRoute>} />
+                        <Route path='*' element={<PageNotFound />} />
                     </Routes>
                     <Footer />
                 </div>

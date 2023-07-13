@@ -43,7 +43,7 @@ export default function Entries() {
             entries.map((entry) => {
                 return (
                     <>
-                        <Entry entry={entry} />
+                        <Entry key={entry.id} entry={entry} />
                     </>
                 )
             })
